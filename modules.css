@@ -14,8 +14,9 @@ input[type="checkbox"] {
     height: 1.125rem;
     /* Cor do fundo e borda */
     background-color: #fff;
-    border: 0.125rem solid #ccc;
+    border: 0.125rem solid white;
     border-radius: 0.25rem;
+    box-shadow: none;
   }
   
   /* Características do marcador */
@@ -56,6 +57,15 @@ input[type="checkbox"] {
   
   input[type="checkbox"]:focus {
     border-color: #e0138c;
+  }
+
+  input[type="text"] {
+    border: none;
+    height: 28px;
+    margin-left: 5px;
+  }
+  input[type="text"]:focus {
+    border-color: #212121;
   }
   
   input[type="checkbox"]:focus + label {
