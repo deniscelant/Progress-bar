@@ -1,0 +1,9 @@
+/* @keyframes progressBar
+{
+    0%{ width: 0%;}
+    100%{ width: unset;}
+}
+
+#progress{
+    animation: progressBar 0.5s;
+} */
