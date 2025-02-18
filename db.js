@@ -1,6 +1,8 @@
-const modules = [
+
+
+export const modules = [
     {
         name: "checklist",
-        code: "checklist",
+        input: `<input type="checkbox">`,
     }
 ]

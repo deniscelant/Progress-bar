@@ -1,0 +1,41 @@
+
+.barPanel{
+    background: linear-gradient(to right,#4d4d4d, #333333, #333333) ;
+    width: 800px;
+    padding: 15px 50px 15px 15px;
+    border-radius: 4px;
+    box-shadow: 5px 5px 15px #0f0f0f ;
+    margin-bottom: 15px;
+}
+
+#bar{
+    width: 770px;
+    height: 50px;
+    border: solid 2px rgb(116, 116, 116);
+    border-radius: 4px;
+    margin: 0 auto;
+
+}
+
+#progress{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 0%;
+    height: 100%;
+    background:  linear-gradient(to right, #cf5dd3, #aa00bc);
+    white-space: nowrap;
+    text-indent: 15px;
+}
+
+#percent{
+    position: absolute;
+    right: 600px;
+}
+
+#arrowDown{
+    position: absolute;
+    right: 550px;
+}
+
