@@ -20,6 +20,16 @@ class barPanel{
     }
 }
 
+class modules{
+    constructor(name){
+        this.name = name;
+    }
+
+    createTodo(){
+        teste.innerHTML = `<input type="checkbox">${userInput.value}.value</input>`
+    }
+}
+
 const teste = document.getElementById("teste")
 const newbarPanel = new barPanel("Freelance")
 
