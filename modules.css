@@ -3,6 +3,7 @@
 #inputArea{
     display: flex;
     flex-direction: row;
+    display: hidden;
 }
 
 
@@ -61,7 +62,7 @@ input[type="checkbox"] {
 
   input[type="text"] {
     border: none;
-    height: 28px;
+    height: 25px;
     margin-left: 5px;
   }
   input[type="text"]:focus {
@@ -73,7 +74,7 @@ input[type="checkbox"] {
   }
 
   #typeInput{
-    background-color: #212121;
+    background-color: unset;
     color: white;
     font-size: 20px;
   }
@@ -83,4 +84,9 @@ input[type="checkbox"] {
   input:focus, textarea:focus, select:focus {
     outline: none;
     border: 1px solid #ccc; /* Ou qualquer cor de borda que você prefira */
+  }
+
+  .modulesHub{
+    margin-top: 15px;
+    display: none;
   }
