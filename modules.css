@@ -86,7 +86,12 @@ input[type="checkbox"] {
     border: 1px solid #ccc; /* Ou qualquer cor de borda que você prefira */
   }
 
-  .modulesHub{
+  .modulesHubHidden{
     margin-top: 15px;
     display: none;
+  }
+  
+  .modulesHubShow{
+    margin-top: 15px;
+    display: block;
   }
