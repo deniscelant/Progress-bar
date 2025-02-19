@@ -21,25 +21,24 @@ class panelBar {
             </div>
         </div>
     `
-
-        this.clickEvent(panel, "openbarPanel", "barPanel")
+        // const arrowDown = document.querySelector("#arrowDown");
+        // this.clickEvent(arrowDown, "openbarPanel", "barPanel")
     }
 
     createTodo() {
         const modulesHub = document.createElement("div");
-        modulesHub.classList.add("modulesHubShow")
+        modulesHub.id = "modulesHub"
+        modulesHub.classList.add("modulesHubHidden")
         const panel = document.getElementById("panelId");
         panel.appendChild(modulesHub);
-        
+
         modulesHub.innerHTML = `
             <div id="inputArea">
                <input id="check" type="checkbox"><input id="typeInput" type="text" placeholder="Digite aqui..."></input>
            </div>
            `;
 
-        // if(panel.classList.contains("barPanel")){
-        //     modulesHub.style.display = "none"
-        // }
+
 
     }
 
@@ -52,13 +51,22 @@ class panelBar {
         }
     }
 
+    moduleClickEvent(parent, child, firstClass, secondClass) {
+        parent.onclick = () => {
+
+                child.classList.toggle(firstClass);
+                child.classList.toggle(secondClass);
+
+        }
+    }
+
     // todoButton() {
     //     const todoButton = document.createElement("button")
 
     // }
-
-
 }
+
+
 
 let moduleUnit = "100px"
 
@@ -67,5 +75,9 @@ const newbarPanel = new panelBar()
 newbarPanel.createBar("Freelance");
 newbarPanel.createTodo();
 
+const panelE = document.getElementById("panelId");
+const modulesHubE = document.getElementById("modulesHub");
+
+newbarPanel.moduleClickEvent(panelE, typeInput, "modulesHubShow", "modulesHubHidden")
 
 
