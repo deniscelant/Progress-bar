@@ -22,14 +22,13 @@ class panelBar {
         </div>
     `
 
-        const panelId = document.getElementById("panelId")
-        this.clickEvent(panelId, "openbarPanel", "barPanel")
+        this.clickEvent(panel, "openbarPanel", "barPanel")
     }
 
     createTodo() {
         const modulesHub = document.createElement("div");
-        const panel = document.getElementById("panelId");
-        panel.appendChild(modulesHub);
+        // const panel = document.getElementById("panelId");
+        // panel.appendChild(modulesHub);
         
         modulesHub.innerHTML = `
             <div id="inputArea">
@@ -48,10 +47,10 @@ class panelBar {
         }
     }
 
-    todoButton() {
-        const todoButton = document.createElement("button")
+    // todoButton() {
+    //     const todoButton = document.createElement("button")
 
-    }
+    // }
 
 
 }
@@ -61,7 +60,7 @@ let moduleUnit = "100px"
 const newbarPanel = new panelBar()
 
 newbarPanel.createBar("Freelance");
-newbarPanel.createTodo();
+// newbarPanel.createTodo();
 
 
 
