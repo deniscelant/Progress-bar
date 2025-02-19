@@ -8,6 +8,8 @@ class panelBar {
 
         panel.classList.add("barPanel");
         panel.id = "panelId"
+        const teste = document.getElementById("teste")
+
         teste.appendChild(panel)
 
         panel.innerHTML = `
@@ -20,20 +22,15 @@ class panelBar {
         </div>
     `
 
-        const modulesID = document.createElement("div");
-        modulesID.classList.add("modulesHubHidden")
-        modulesID.id = "modulesId"
-        panel.appendChild(modulesID)
-
-        
         const panelId = document.getElementById("panelId")
         this.clickEvent(panelId, "openbarPanel", "barPanel")
-        this.clickEvent(modulesID, "modulesHubShow", "modulesHubHidden")
     }
 
     createTodo() {
-        const modulesHub = document.getElementsByClassName("modulesHubHidden");
-
+        const modulesHub = document.createElement("div");
+        const panel = document.getElementById("panelId");
+        panel.appendChild(modulesHub);
+        
         modulesHub.innerHTML = `
             <div id="inputArea">
                <input id="check" type="checkbox"><input id="typeInput" type="text" placeholder="Digite aqui..."></input>
@@ -60,7 +57,6 @@ class panelBar {
 }
 
 let moduleUnit = "100px"
-const teste = document.getElementById("teste")
 
 const newbarPanel = new panelBar()
 
