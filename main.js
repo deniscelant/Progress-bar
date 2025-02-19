@@ -27,14 +27,19 @@ class panelBar {
 
     createTodo() {
         const modulesHub = document.createElement("div");
-        // const panel = document.getElementById("panelId");
-        // panel.appendChild(modulesHub);
+        modulesHub.classList.add("modulesHubShow")
+        const panel = document.getElementById("panelId");
+        panel.appendChild(modulesHub);
         
         modulesHub.innerHTML = `
             <div id="inputArea">
                <input id="check" type="checkbox"><input id="typeInput" type="text" placeholder="Digite aqui..."></input>
            </div>
            `;
+
+        // if(panel.classList.contains("barPanel")){
+        //     modulesHub.style.display = "none"
+        // }
 
     }
 
@@ -60,7 +65,7 @@ let moduleUnit = "100px"
 const newbarPanel = new panelBar()
 
 newbarPanel.createBar("Freelance");
-// newbarPanel.createTodo();
+newbarPanel.createTodo();
 
 
 
