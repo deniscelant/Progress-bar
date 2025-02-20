@@ -1,83 +1,75 @@
 import * as db from "/db.js"
 
+const hub = document.getElementById("hub")
+const createBarButton = document.getElementById("createBar")
+
 class panelBar {
     constructor() {
     }
     createBar(name) {
-        const panel = document.createElement("div");
+        let barInfo = {
 
-        panel.classList.add("barPanel");
-        panel.id = "panelId"
-        const teste = document.getElementById("teste")
+        }
+    //    this.renderBar(name);
+    }
 
-        teste.appendChild(panel)
+    progress(){
+        let fr = 1;
+        let total = 100;
+        let module = fr;
+    }
 
-        panel.innerHTML = `
-        <div id="bar">
-            <div id="progress">
-                <h3 id="project">${name}</h3>
-                <p id="percent">0%</p>
-                <p id="arrowDown">↓</p>
-            </div>
-        </div>
-    `
-        // const arrowDown = document.querySelector("#arrowDown");
-        // this.clickEvent(arrowDown, "openbarPanel", "barPanel")
+    renderBar(name){
+        const barPanel = document.createElement("div");
+        const bar = document.createElement("div");
+        const progress = document.createElement("div")
+        const text = document.createElement("h3")
+        const percent = document.createElement("p")
+        const arrowDown = document.createElement("p")
+
+        barPanel.classList.add("barPanel")
+        bar.id = "bar"
+        progress.id = "progress"
+        text.id = "text"
+        percent.id = "percent"
+        arrowDown.id = "arrowDown"
+
+        barPanel.appendChild(bar);
+        bar.appendChild(progress);
+        progress.appendChild(text);
+        progress.appendChild(percent);
+        progress.appendChild(arrowDown);
+
+        hub.appendChild(barPanel);
+
+        text.textContent = name;
+        percent.textContent = "0%";
+        arrowDown.textContent = "↓";
     }
 
     createTodo() {
-        const modulesHub = document.createElement("div");
-        modulesHub.id = "modulesHub"
-        modulesHub.classList.add("modulesHubHidden")
-        const panel = document.getElementById("panelId");
-        panel.appendChild(modulesHub);
-
-        modulesHub.innerHTML = `
-            <div id="inputArea">
-               <input id="check" type="checkbox"><input id="typeInput" type="text" placeholder="Digite aqui..."></input>
-           </div>
-           `;
-
-
-
+      
     }
 
-    clickEvent(element, firstClass, secondClass) {
-        element.onclick = () => {
 
-            element.classList.toggle(firstClass);
-            element.classList.toggle(secondClass);
-
-        }
-    }
-
-    moduleClickEvent(parent, child, firstClass, secondClass) {
+    clickEvent(parent, child, firstClass, secondClass) {
         parent.onclick = () => {
 
-                child.classList.toggle(firstClass);
-                child.classList.toggle(secondClass);
+            child.classList.toggle(firstClass);
+            child.classList.toggle(secondClass);
 
         }
     }
-
-    // todoButton() {
-    //     const todoButton = document.createElement("button")
-
-    // }
 }
 
+const panel = new panelBar();
+panel.createBar("Front end 2026");
 
 
-let moduleUnit = "100px"
+let total;
+let module = 5
 
-const newbarPanel = new panelBar()
+let doneModule = 2
+let percent = total % doneModule
 
-newbarPanel.createBar("Freelance");
-newbarPanel.createTodo();
-
-const panelE = document.getElementById("panelId");
-const modulesHubE = document.getElementById("modulesHub");
-
-newbarPanel.moduleClickEvent(panelE, typeInput, "modulesHubShow", "modulesHubHidden")
-
-
+console.log(module/doneModule)

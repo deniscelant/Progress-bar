@@ -34,3 +34,17 @@ p{
     -webkit-text-fill-color: transparent;
     
 }
+
+button{
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+}
+
+#createBar{
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 30px;
+    background-color: #757575;
+    color: white;
+}
