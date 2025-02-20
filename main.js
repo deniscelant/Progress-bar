@@ -10,16 +10,23 @@ class panelBar {
         let barInfo = {
 
         }
-    //    this.renderBar(name);
+        //    this.renderBar(name);
     }
 
-    progress(){
-        let fr = 1;
-        let total = 100;
-        let module = fr;
+    progress() {
+        let total;
+        let module = 5
+        let doneModule = 2
+        total = (module / doneModule)
     }
 
-    renderBar(name){
+    user(name, bars){
+        name = name
+        bars = bars
+
+    }
+
+    renderBar(name) {
         const barPanel = document.createElement("div");
         const bar = document.createElement("div");
         const progress = document.createElement("div")
@@ -48,7 +55,7 @@ class panelBar {
     }
 
     createTodo() {
-      
+
     }
 
 
@@ -66,10 +73,3 @@ const panel = new panelBar();
 panel.createBar("Front end 2026");
 
 
-let total;
-let module = 5
-
-let doneModule = 2
-let percent = total % doneModule
-
-console.log(module/doneModule)
