@@ -11,14 +11,15 @@ class panelBar {
            this.renderBar(name);
     }
 
-    progressBar(element) {
+    progressBar(bar, percent) {
         let total = 100
         let qtd = 10
-        let doneModule = 3
+        let doneModule = 5
         let some = (total * doneModule / qtd)
         some = Math.trunc(some);
-        element.style.width = `${some}%`
-        console.log(element)
+        bar.style.width = `${some}%`
+        percent.textContent = `${some}%`
+        console.log(bar)
     }
 
     user(name, bars){
@@ -36,6 +37,7 @@ class panelBar {
         const arrowDown = document.createElement("p")
 
         barPanel.classList.add("barPanel")
+        barPanel.id = "barPanel"
         bar.id = "bar"
         progress.id = "progress"
         text.id = "text"
@@ -54,11 +56,26 @@ class panelBar {
         percent.textContent = "0%";
         arrowDown.textContent = "↓";
 
-        this.progressBar(progress);
+        this.progressBar(progress, percent);
     }
 
     createTodo() {
+        const inputArea = document.createElement("div");
+        const checkBox = document.createElement("input");
+        const typeInput = document.createElement("input");
 
+        inputArea.id = "inputArea"
+        checkBox.id = "check"
+        typeInput.id = "typeInput"
+
+        const barPanel = document.getElementById("barPanel")
+        barPanel.appendChild(inputArea)
+        inputArea.appendChild(checkBox)
+        inputArea.appendChild(typeInput)
+
+        checkBox.type = "checkbox"
+        typeInput.type = "text"
+        typeInput.placeholder = "Digite aqui..."
     }
 
 
@@ -74,5 +91,6 @@ class panelBar {
 
 const panel = new panelBar();
 panel.createBar("Front end 2026");
+panel.createTodo();
 
 
