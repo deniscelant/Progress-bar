@@ -1,5 +1,4 @@
-
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,42 +8,56 @@ body{
     color: white;
 }
 
-header{
-    width: 1350px;
+@media only screen and (max-width: 600px) {
+    header {
+        max-width: 600px;
+
+    }
+}
+
+header {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
 }
 
-h1{
+h1 {
     font-family: "Inter", sans-serif;
     font-weight: 700;
 }
 
-p{
+p {
     font-family: "Inter", sans-serif;
     font-weight: 400;
 }
 
-#tittlePB{
-    background:  linear-gradient(to right, #fc8dff, #aa00bc);
+#tittlePB {
+    background: linear-gradient(to right, #fc8dff, #aa00bc);
     -webkit-background-clip: text;
-            background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    
+
 }
 
-button{
+button {
     font-family: "Inter", sans-serif;
     font-weight: 700;
 }
 
-#createBar{
+#createBarButton {
     width: 50px;
     height: 50px;
     font-size: 30px;
     border-radius: 30px;
     background-color: #757575;
     color: white;
+}
+
+#show{
+    display: block;
+}
+#hidden{
+    display: none;
 }

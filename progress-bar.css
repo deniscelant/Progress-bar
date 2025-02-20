@@ -48,6 +48,34 @@
 
 #arrowDown{
     position: absolute;
-    right: 550px;
+    right: 555px;
 }
 
+/* #add{
+    position: absolute;
+    right: 555px;
+} */
+
+@media only screen and (max-width: 600px) {
+    .barPanel {
+        max-width: 500px;
+        padding: 15px 50px 15px 15px;
+        
+    }
+
+    #bar {
+        max-width: 450px;
+        
+    }
+
+    #arrowDown{
+        position: absolute;
+        right: 58px;
+    }
+    
+    #percent{
+        position: absolute;
+        right: 110px;
+    }
+
+}

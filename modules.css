@@ -1,97 +1,101 @@
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  /* Tamanho */
+  width: 1.125rem;
+  height: 1.125rem;
+  /* Cor do fundo e borda */
+  background-color: #fff;
+  border: 0.125rem solid white;
+  border-radius: 0.25rem;
+  box-shadow: none;
+}
 
+/* Características do marcador */
+input[type="checkbox"]::before {
+  content: "";
+  /* Posicionar no meio */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Tamanho do marcador */
+  width: 0.75rem;
+  height: 0.75rem;
+  /* Formato do marcador */
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  /* Posicionar no meio */
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center;
+  transition: 0.125s transform ease-in-out;
+  /* Cor do marcador */
+  box-shadow: inset 1rem 1rem #fff;
+}
 
-#inputArea{
-    display: flex;
-    flex-direction: row;
-    display: hidden;
+/* Cor da caixa para o marcador */
+input[type="checkbox"]:checked {
+  background-color: #e0138c;
+  border-color: #e0138c;
+}
+
+/* Características do marcador quando selecionado */
+input[type="checkbox"]:checked::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Características do marcador quando selecionado */
+input[type="checkbox"]:disabled {
+  opacity: 0.25;
+}
+
+input[type="checkbox"]:focus {
+  border-color: #e0138c;
+}
+
+input[type="text"] {
+  border: none;
+  height: 25px;
+  margin-left: 5px;
+}
+
+input[type="text"]:focus {
+  border-color: #212121;
+}
+
+input[type="checkbox"]:focus+label {
+  color: #e0138c;
+}
+
+#typeInput {
+  background-color: unset;
+  color: white;
+  font-size: 20px;
 }
 
 
-input[type="checkbox"] {
-    appearance: none;
-    position: relative;
-    /* Tamanho */
-    width: 1.125rem;
-    height: 1.125rem;
-    /* Cor do fundo e borda */
-    background-color: #fff;
-    border: 0.125rem solid white;
-    border-radius: 0.25rem;
-    box-shadow: none;
-  }
-  
-  /* Características do marcador */
-  input[type="checkbox"]::before {
-    content: "";
-    /* Posicionar no meio */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    /* Tamanho do marcador */
-    width: 0.75rem;
-    height: 0.75rem;
-    /* Formato do marcador */
-    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-    /* Posicionar no meio */
-    transform: translate(-50%, -50%) scale(0);
-    transform-origin: center;
-    transition: 0.125s transform ease-in-out;
-    /* Cor do marcador */
-    box-shadow: inset 1rem 1rem #fff;
-  }
-  
-  /* Cor da caixa para o marcador */
-  input[type="checkbox"]:checked {
-    background-color: #e0138c;
-    border-color: #e0138c;
-  }
-  
-  /* Características do marcador quando selecionado */
-  input[type="checkbox"]:checked::before {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  
-  /* Características do marcador quando selecionado */
-  input[type="checkbox"]:disabled {
-    opacity: 0.25;
-  }
-  
-  input[type="checkbox"]:focus {
-    border-color: #e0138c;
-  }
 
-  input[type="text"] {
-    border: none;
-    height: 25px;
-    margin-left: 5px;
-  }
-  input[type="text"]:focus {
-    border-color: #212121;
-  }
-  
-  input[type="checkbox"]:focus + label {
-    color: #e0138c;
-  }
-
-  #typeInput{
-    background-color: unset;
-    color: white;
-    font-size: 20px;
-  }
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border: 1px solid #ccc;
+  /* Ou qualquer cor de borda que você prefira */
+}
 
 
+#showModule {
+  margin-top: 15px;
+  display: block;
+}
 
-  input:focus, textarea:focus, select:focus {
-    outline: none;
-    border: 1px solid #ccc; /* Ou qualquer cor de borda que você prefira */
-  }
+#hideModule {
+  margin-top: 15px;
+  display: none;
+}
 
-  .modulesHubHidden{
-    margin-top: 15px;
-    display: none;
-  }
-  
-  .modulesHubShow{
-    margin-top: 15px;
-    display: block;
-  }
+
+#inputArea {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  display: none;
+}
