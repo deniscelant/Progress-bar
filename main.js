@@ -7,17 +7,18 @@ class panelBar {
     constructor() {
     }
     createBar(name) {
-        let barInfo = {
-
-        }
-        //    this.renderBar(name);
+        
+           this.renderBar(name);
     }
 
-    progress() {
-        let total;
-        let module = 5
-        let doneModule = 2
-        total = (module / doneModule)
+    progressBar(element) {
+        let total = 100
+        let qtd = 10
+        let doneModule = 3
+        let some = (total * doneModule / qtd)
+        some = Math.trunc(some);
+        element.style.width = `${some}%`
+        console.log(element)
     }
 
     user(name, bars){
@@ -52,6 +53,8 @@ class panelBar {
         text.textContent = name;
         percent.textContent = "0%";
         arrowDown.textContent = "↓";
+
+        this.progressBar(progress);
     }
 
     createTodo() {
