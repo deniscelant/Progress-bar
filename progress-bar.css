@@ -56,6 +56,24 @@
     right: 555px;
 } */
 
+#text input{
+    border: none;
+    background-color: unset;
+}
+
+#text{
+    border: none;
+    background-color: unset;
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#text::placeholder{
+    color: white;
+}
+
 @media only screen and (max-width: 600px) {
     .barPanel {
         max-width: 500px;

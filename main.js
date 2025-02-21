@@ -3,6 +3,7 @@ import * as db from "/db.js";
 const hub = document.getElementById("hub");
 const createBarButton = document.getElementById("createBarButton");
 let activeModules = [];
+let markedModules = [];
 let unitMod;
 
 class panelBar {
@@ -14,13 +15,13 @@ class panelBar {
 
   progressBar(bar, percent) {
     let total = 100;
-    let qtd = 10;
-    let doneModule = 5;
+    let qtd = activeModules.length;
+    let doneModule = markedModules.length;
     let some = (total * doneModule) / qtd;
     some = Math.trunc(some);
     bar.style.width = `${some}%`;
     percent.textContent = `${some}%`;
-    console.log(bar);
+    console.log(some);
   }
 
   user(name, bars) {
@@ -28,11 +29,11 @@ class panelBar {
     bars = bars;
   }
 
-  renderBar(name) {
+  renderBar() {
     const barPanel = document.createElement("div");
     const bar = document.createElement("div");
     const progress = document.createElement("div");
-    const text = document.createElement("h3");
+    const text = document.createElement("input");
     const percent = document.createElement("p");
     const arrowDown = document.createElement("p");
     const modulesHub = document.createElement("div");
@@ -59,7 +60,8 @@ class panelBar {
 
     hub.appendChild(barPanel);
 
-    text.textContent = name;
+    text.placeholder = "My bar";
+    text.type = "text";
     percent.textContent = "0%";
     arrowDown.textContent = "↓";
     add.textContent = "+";
@@ -112,7 +114,7 @@ class panelBar {
     typeInput.type = "text";
     typeInput.placeholder = "Digite aqui...";
 
-    this.toogleClickEvent(arrowDown, inputArea, "showModule", "hideModule");
+    // this.toogleClickEvent(arrowDown, inputArea, "showModule", "hideModule");
   }
 
   toogleClickEvent(parent, child, firstId, secondId) {
@@ -127,4 +129,11 @@ class panelBar {
 }
 
 const panel = new panelBar();
-panel.createBar("Front end 2026");
+createBarButton.onclick = () =>{
+  panel.createBar()
+}
+
+const checkBox = document.getElementById("check")
+checkBox.onclick = () => {
+
+}
