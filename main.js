@@ -5,30 +5,12 @@ const createBarButton = document.getElementById("createBarButton");
 let activeModules = [];
 let markedModules = [];
 let unitMod;
+let unitMarkedMod;
 
 class panelBar {
   constructor() {}
-  createBar(name) {
-    this.renderBar(name);
-    // this.changeBarState();
-  }
 
-  progressBar(bar, percent) {
-    let total = 100;
-    let qtd = activeModules.length;
-    let doneModule = markedModules.length;
-    let some = (total * doneModule) / qtd;
-    some = Math.trunc(some);
-    bar.style.width = `${some}%`;
-    percent.textContent = `${some}%`;
-    console.log(some);
-  }
-
-  user(name, bars) {
-    name = name;
-    bars = bars;
-  }
-
+  //---------------REFACT
   renderBar() {
     const barPanel = document.createElement("div");
     const bar = document.createElement("div");
@@ -66,55 +48,52 @@ class panelBar {
     arrowDown.textContent = "↓";
     add.textContent = "+";
 
-    // if(activeModules.length == 0){
-
-    //     arrowDown.textContent = "";
-    //     add.textContent = "+";
-    // } else if (activeModules.length > 0){
-    //     arrowDown.textContent = "↓";
-    //     add.textContent = "";
-
-    // }
-
-    this.progressBar(progress, percent);
-    this.toogleClickEvent(arrowDown, modulesHub, "show", "hidden");
-    add.onclick = () => {
-
-        this.createTodo()
-    }
-  }
-
-  changeBarState() {
-    const arrowDown = document.querySelector("#arrowDown");
-    const modulesHub = document.getElementById("modulesHub");
-
     this.toogleClickEvent(arrowDown, modulesHub, "show", "hidden");
   }
+
+  //---------------REFACT
 
   createTodo() {
-    const arrowDown = document.querySelector("#arrowDown");
+      const inputArea = document.createElement("div");
+      const checkBox = document.createElement("input");
+      const typeInput = document.createElement("input");
 
-    // unitMod += 1
-    // activeModules.push(unitMod)
+      inputArea.id = "inputArea";
+      checkBox.id = "checkBox";
+      typeInput.id = "typeInput";
 
-    const inputArea = document.createElement("div");
-    const checkBox = document.createElement("input");
-    const typeInput = document.createElement("input");
+      const modulesHub = document.getElementsByClassName("modulesHub");
+      Array.from(modulesHub).forEach((e) => {
+        e.appendChild(inputArea);
+      });
 
-    inputArea.id = "inputArea";
-    checkBox.id = "check";
-    typeInput.id = "typeInput";
+      inputArea.appendChild(checkBox);
+      inputArea.appendChild(typeInput);
 
-    const modulesHub = document.getElementsByClassName("modulesHub");
-    Array.from(modulesHub).forEach((e) => {e.appendChild(inputArea)});
-    inputArea.appendChild(checkBox);
-    inputArea.appendChild(typeInput);
+      checkBox.type = "checkbox";
+      typeInput.type = "text";
+      typeInput.placeholder = "Digite aqui...";
 
-    checkBox.type = "checkbox";
-    typeInput.type = "text";
-    typeInput.placeholder = "Digite aqui...";
+  }
 
-    // this.toogleClickEvent(arrowDown, inputArea, "showModule", "hideModule");
+  calcProgress() {
+
+      let total = 100;
+      let qtd = activeModules.length;
+      let doneModule = markedModules.length;
+      let some = (total * doneModule) / qtd;
+      some = Math.trunc(some);
+      console.log(
+        "módulos ativos: " + qtd + " módulos marcados: " + doneModule
+      );
+  }
+
+  changeProgress(some){
+    const progress = document.getElementById("progress");
+    const percent = document.getElementById("percent");
+
+    progress.style.width = `${some}%`;
+    percent.textContent = `${some}%`;
   }
 
   toogleClickEvent(parent, child, firstId, secondId) {
@@ -129,11 +108,6 @@ class panelBar {
 }
 
 const panel = new panelBar();
-createBarButton.onclick = () =>{
-  panel.createBar()
-}
-
-const checkBox = document.getElementById("check")
-checkBox.onclick = () => {
-
-}
+createBarButton.onclick = () => {
+  panel.renderBar();
+};
