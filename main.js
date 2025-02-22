@@ -1,4 +1,3 @@
-import * as db from "/db.js";
 
 const hub = document.getElementById("hub");
 
@@ -37,7 +36,7 @@ renderBar() {
     // this.toogleClickEvent(arrowDown, modulesHub, "show", "hidden");
   }
 
-  static renderTodoHub() {
+  renderTodoHub() {
     const modulesHub = document.createElement("div");
     const barPanel = document.getElementById("barPanel");
 
@@ -52,7 +51,7 @@ renderBar() {
     barPanel.appendChild(modulesHub);
   }
 
-  static renderCheckBox() {
+  renderCheckBox() {
     const inputArea = document.createElement("div");
     const checkBox = document.createElement("input");
     const typeInput = document.createElement("input");
@@ -122,11 +121,14 @@ class EventManager {
     // this.selector = selector;
   }
 
-  clickbar(){
-    this.method.renderBar();
+  clickbar(selector){
+    const element = document.querySelector(selector)
+    element.addEventListener("click", () => this.method.renderBar());
+
   }
+  
 }
 
 const bar = new Bar();
 const eventBar = new EventManager(bar);
-eventBar.clickbar();
+eventBar.clickbar("#createBarButton");
