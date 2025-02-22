@@ -5,7 +5,7 @@ const hub = document.getElementById("hub");
 class Bar {
   constructor() {}
 
-  static renderBar() {
+renderBar() {
     const barPanel = document.createElement("div");
     const bar = document.createElement("div");
     const progress = document.createElement("div");
@@ -117,18 +117,16 @@ class Style {
 }
 
 class EventManager {
-  constructor(selector){
-    this.selector = selector
-    
+  constructor(method) {
+    this.method = method;
+    // this.selector = selector;
   }
 
-  clickEvent(selector, method) {
-    document.querySelector(selector).addEventListener("click", method)
+  clickbar(){
+    this.method.renderBar();
   }
 }
 
-const user = new EventManager();
 const bar = new Bar();
-
-user.createBar();
-user.clickEvent("#arrowDown", render)
+const eventBar = new EventManager(bar);
+eventBar.clickbar();
