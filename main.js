@@ -1,10 +1,9 @@
-
 const hub = document.getElementById("hub");
 
 class Bar {
   constructor() {}
 
-renderBar() {
+  renderBar() {
     const barPanel = document.createElement("div");
     const bar = document.createElement("div");
     const progress = document.createElement("div");
@@ -121,14 +120,33 @@ class EventManager {
     // this.selector = selector;
   }
 
-  clickbar(selector){
-    const element = document.querySelector(selector)
-    element.addEventListener("click", () => this.method.renderBar());
+  clickBar(selector) {
+    const barElement = document.querySelector(selector);
+    barElement.addEventListener("click", () => this.method.renderBar());
 
   }
-  
-}
+
+  clickToRenderTodoHub() {
+    const arrowElement = document.querySelectorAll("p");
+
+    } 
+  }
 
 const bar = new Bar();
 const eventBar = new EventManager(bar);
-eventBar.clickbar("#createBarButton");
+
+eventBar.clickBar("#createBarButton");
+// eventBar.clickToRenderTodoHub();
+
+
+
+
+setInterval(() =>{
+  const arrowElement = document.querySelectorAll("p");
+
+  arrowElement.forEach((element) => {
+    element.addEventListener('click', () => {
+      console.log(element.id);
+    });
+  });
+}, 1000)
