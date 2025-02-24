@@ -102,18 +102,6 @@ class Progress {
   }
 }
 
-class Style {
-  toogleStyle(parent, child, firstId, secondId) {
-    parent.onclick = () => {
-      if (child.id == firstId) {
-        child.id = secondId;
-      } else {
-        child.id = firstId;
-      }
-    };
-  }
-}
-
 class EventManager {
   constructor(method) {
     this.method = method;
@@ -123,30 +111,48 @@ class EventManager {
   clickBar(selector) {
     const barElement = document.querySelector(selector);
     barElement.addEventListener("click", () => this.method.renderBar());
-
+    this.toogleStyle(event)
   }
 
-  clickToRenderTodoHub() {
-    const arrowElement = document.querySelectorAll("p");
+  // clickToRenderTodoHub() {
+  //   const intTodo = setInterval(() =>{
+  //     const arrowElement = document.querySelectorAll("p");
 
-    } 
+  //     arrowElement.forEach((element) => {
+  //       element.addEventListener('click', () => {
+  //         if(element.id == "arrowDown"){
+  //           this.method.renderTodoHub();
+  //           clearInterval(intTodo)
+
+  //         } else{
+  //           console.log("erro")
+  //         }
+  //       });
+  //     });
+  //   }, 1000)
+
+  //   }
+
+  toogleStyle(event) {
+    document.body.onclick = () =>{
+
+      const bpn = document.getElementById("barPanel")
+      // let text = event.currentTarget;
+      if(event.currentTarget.id === "arrowDown"){
+        bpn.classList.toggle("openBarPanel")
+      } else{
+        bpn.classList.toggle("barPanel")
+  
+      }
+    }
   }
+
+  
+  
+  
+}
 
 const bar = new Bar();
 const eventBar = new EventManager(bar);
 
 eventBar.clickBar("#createBarButton");
-// eventBar.clickToRenderTodoHub();
-
-
-
-
-setInterval(() =>{
-  const arrowElement = document.querySelectorAll("p");
-
-  arrowElement.forEach((element) => {
-    element.addEventListener('click', () => {
-      console.log(element.id);
-    });
-  });
-}, 1000)
