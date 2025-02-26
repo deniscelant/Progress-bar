@@ -1,4 +1,5 @@
 const hub = document.getElementById("hub");
+let clicked = false;
 
 class Bar {
   constructor() {}
@@ -32,6 +33,8 @@ class Bar {
     percent.textContent = "0%";
     arrowDown.textContent = "↓";
 
+    const eventBar = new EventManager();
+    eventBar.clickEvent(arrowDown)
     // this.toogleClickEvent(arrowDown, modulesHub, "show", "hidden");
   }
 
@@ -111,10 +114,7 @@ class EventManager {
   clickBar(selector) {
     const barElement = document.querySelector(selector);
     barElement.addEventListener("click", () => this.method.renderBar());
-    window.addEventListener("DOMContentLoaded", () =>{
-
-      this.toogleStyle()
-    })
+  
 
   }
 
@@ -137,25 +137,50 @@ class EventManager {
 
   //   }
 
-  toogleStyle(event) {
+  toogleStyle(selector) {
 
-      const arrowDown = document.querySelector("#arrowDown")
-      let text = event.currentTarget.id;
+      const p = document.querySelectorAll("p")
+      // const search = p.forEach(e => {
 
-      arrowDown.onclick = () =>{
-        if(text === "arrowDown"){
-          const barPanel = document.getElementById("barPanel")
-          barPanel.classList.toggle("openBarPanel")
-          barPanel.classList.toggle("barPanel")
-        } else{
-          console.log("event não é arrowDown")
+      //   e.find((e) => e === "arrowDown")
+      // })
+      const pArr = Array.from(p);
+      const search = pArr.find((e) => e === "arrowDown")
+
+      if(search){
+
+        selector.onclick = (event) =>{
+            // let text = event.currentTarget.id;
+            const barPanel = document.getElementById("barPanel")
+            barPanel.classList.toggle("openBarPanel")
+            barPanel.classList.toggle("barPanel")
         }
+      } else{
+        console.log("erro");
+        
       }
 
 
+
+  }
+
+  clickEvent(selector){
+    selector.onclick = () =>{clicked = true;}
   }
 }
 
 const bar = new Bar();
 const eventBar = new EventManager(bar);
 eventBar.clickBar("#createBarButton");
+
+if(document.querySelector("#arrowDown")){
+
+  const arrowDown = document.querySelector("#arrowDown")
+  arrowDown.onclick = eventM.toogleStyle(arrowDown);
+} else if(clicked){
+    const arrowDown = document.querySelector("#arrowDown")
+    arrowDown.onclick = eventBar.toogleStyle(arrowDown);
+
+} else{
+  console.log("Erro")
+}
