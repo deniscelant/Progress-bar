@@ -111,6 +111,11 @@ class EventManager {
   clickBar(selector) {
     const barElement = document.querySelector(selector);
     barElement.addEventListener("click", () => this.method.renderBar());
+    window.addEventListener("DOMContentLoaded", () =>{
+
+      this.toogleStyle()
+    })
+
   }
 
   // clickToRenderTodoHub() {
@@ -134,21 +139,23 @@ class EventManager {
 
   toogleStyle(event) {
 
-    let text = event.currentTarget.nodeName;
-    console.log(text);
+      const arrowDown = document.querySelector("#arrowDown")
+      let text = event.currentTarget.id;
 
-    // if (text === "arrowDown") {
-    //   bar.classList.toggle("openBarPanel");
-    //   bar.classList.toggle("barPanel");
-    // } else {
-    //   console.log("erro")
-    // }
+      arrowDown.onclick = () =>{
+        if(text === "arrowDown"){
+          const barPanel = document.getElementById("barPanel")
+          barPanel.classList.toggle("openBarPanel")
+          barPanel.classList.toggle("barPanel")
+        } else{
+          console.log("event não é arrowDown")
+        }
+      }
+
+
   }
 }
 
 const bar = new Bar();
 const eventBar = new EventManager(bar);
-
 eventBar.clickBar("#createBarButton");
-const p = document.querySelectorAll("p");
-console.log(p)
