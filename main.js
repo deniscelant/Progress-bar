@@ -1,5 +1,7 @@
 const hub = document.getElementById("hub");
-const modulesList = [];
+let modulesList = [];
+let doneModulesList = [];
+let barList = [];
 
 class Bar {
   constructor() {}
@@ -11,6 +13,7 @@ class Bar {
     const text = document.createElement("input");
     const percent = document.createElement("p");
     const arrowDown = document.createElement("p");
+    const addInit = document.createElement("p");
 
     barPanel.classList.add("barPanel");
     barPanel.id = "barPanel";
@@ -19,30 +22,30 @@ class Bar {
     text.id = "text";
     percent.id = "percent";
     arrowDown.id = "arrowDown";
+    addInit.id = "addInit";
 
     barPanel.appendChild(bar);
     bar.appendChild(progress);
     progress.appendChild(text);
     progress.appendChild(percent);
     progress.appendChild(arrowDown);
+    progress.appendChild(addInit);
 
     hub.appendChild(barPanel);
 
     text.placeholder = "My bar";
     text.type = "text";
     percent.textContent = "0%";
-    arrowDown.textContent = "↓";
 
-    const eventManager = new EventManager()
-    eventManager.toogleStyle(arrowDown, barPanel, "openBarPanel", "barPanel")
-    this.renderTodoHub()
   }
 
   renderTodoHub() {
+    let module = 1;
+    modulesList.push(module)
     const modulesHub = document.createElement("div");
     const barPanel = document.getElementById("barPanel");
 
-    modulesHub.classList.add("hideModule");
+    modulesHub.classList.add("showModule");
 
     const add = document.createElement("p");
     add.id = "add";
@@ -50,11 +53,10 @@ class Bar {
 
     modulesHub.appendChild(add);
     barPanel.appendChild(modulesHub);
-    
-    const eventManager = new EventManager()
-    const arrowDown = document.getElementById("arrowDown")
-    eventManager.toogleStyle(arrowDown, modulesHub, "showModule", "hideModule")
 
+    const eventManager = new EventManager();
+    const arrowDown = document.getElementById("arrowDown");
+    eventManager.toogleStyle(arrowDown, modulesHub, "showModule", "hideModule");
   }
 
   renderCheckBox() {
@@ -79,19 +81,13 @@ class Bar {
     typeInput.placeholder = "Digite aqui...";
   }
 
-  addModule() {
-    let modules = [];
-    let check;
-
-    modules.push(check);
+  removeBar(barId) {
+    let id = barId.id;
+    let index = barList.indexOf(id);
+    barList.splice(index, 1);
   }
 
-  markModule() {
-    let done_modules = [];
-    let mark_check;
 
-    done_modules.push(mark_check);
-  }
 }
 
 class Progress {
@@ -118,42 +114,52 @@ class EventManager {
   clickBar(selector) {
     const barElement = document.querySelector(selector);
     barElement.addEventListener("click", () => this.method.renderBar());
-  
-
   }
 
-  // clickToRenderTodoHub() {
-  //   const intTodo = setInterval(() =>{
-  //     const arrowElement = document.querySelectorAll("p");
-
-  //     arrowElement.forEach((element) => {
-  //       element.addEventListener('click', () => {
-  //         if(element.id == "arrowDown"){
-  //           this.method.renderTodoHub();
-  //           clearInterval(intTodo)
-
-  //         } else{
-  //           console.log("erro")
-  //         }
-  //       });
-  //     });
-  //   }, 1000)
-
-  //   }
 
   toogleStyle(first, second, class1, class2) {
-    first.onclick = () =>{
-      second.classList.toggle(class1)
-      second.classList.toggle(class2)
-    }
-      
+    first.onclick = () => {
+      second.classList.toggle(class1);
+      second.classList.toggle(class2);
+    };
   }
-
-
 }
 
 const bar = new Bar();
 const eventBar = new EventManager(bar);
 eventBar.clickBar("#createBarButton");
 
+// if (modulesList.length >= 1) {
+//   arrowDown.textContent = "↓";
+// } else {
+//   addInit.textContent = "+";
+// }
 
+// eventManager.toogleStyle(arrowDown, barPanel, "openBarPanel", "barPanel");
+
+// addInit.onclick = this.renderTodoHub();
+
+/*
+
+EVENTS
+  - create bar
+  - create task
+  - check/uncheck task
+  - delete task
+  - delete bar
+
+CONTROLLER
+  - render bar
+  - render task
+  - comunicate task to DB
+  - remove task
+  - remove bar
+
+DATABASE
+  - bar
+  - task
+
+  EVENT_CLICK(){
+    
+  }
+*/
