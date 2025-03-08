@@ -3,6 +3,8 @@ let modulesList = [];
 let doneModulesList = [];
 let barList = [];
 
+let exist = false;
+
 class Bar {
   constructor() {}
 
@@ -37,6 +39,9 @@ class Bar {
     text.type = "text";
     percent.textContent = "0%";
 
+    this.renderTodoHub()
+    exist = true;
+    console.log(exist)
   }
 
   renderTodoHub() {
@@ -45,7 +50,7 @@ class Bar {
     const modulesHub = document.createElement("div");
     const barPanel = document.getElementById("barPanel");
 
-    modulesHub.classList.add("showModule");
+    modulesHub.classList.add("hideModule");
 
     const add = document.createElement("p");
     add.id = "add";
@@ -117,6 +122,8 @@ class EventManager {
   }
 
 
+
+
   toogleStyle(first, second, class1, class2) {
     first.onclick = () => {
       second.classList.toggle(class1);
@@ -128,6 +135,31 @@ class EventManager {
 const bar = new Bar();
 const eventBar = new EventManager(bar);
 eventBar.clickBar("#createBarButton");
+
+const p = document.querySelectorAll("p");
+
+function checkP(e){
+  
+  console.log(e.currentTarget.id)
+}
+
+if(exist){
+
+  p.forEach((ps) => {
+  
+    ps.addEventListener("click", (e) => {
+      checkP(e)
+    
+    })
+  })
+}
+
+
+
+
+
+
+
 
 // if (modulesList.length >= 1) {
 //   arrowDown.textContent = "↓";
