@@ -3,8 +3,6 @@ let modulesList = [];
 let doneModulesList = [];
 let barList = [];
 
-let exist = false;
-
 class Bar {
   constructor() {}
 
@@ -38,33 +36,28 @@ class Bar {
     text.placeholder = "My bar";
     text.type = "text";
     percent.textContent = "0%";
+    arrowDown.textContent = "↓";
 
-    this.renderTodoHub()
-    exist = true;
-    console.log(exist)
-  }
 
-  renderTodoHub() {
     let module = 1;
-    modulesList.push(module)
+    modulesList.push(module);
     const modulesHub = document.createElement("div");
-    const barPanel = document.getElementById("barPanel");
 
-    modulesHub.classList.add("hideModule");
+    modulesHub.classList.add("modulesHub");
 
     const add = document.createElement("p");
+    // modulesHub.id = "modulesHub";
     add.id = "add";
     add.textContent = "+";
 
     modulesHub.appendChild(add);
     barPanel.appendChild(modulesHub);
 
-    const eventManager = new EventManager();
-    const arrowDown = document.getElementById("arrowDown");
-    eventManager.toogleStyle(arrowDown, modulesHub, "showModule", "hideModule");
+    const event = new EventManager();
+    event.checkParagraph();
   }
 
-  renderCheckBox() {
+  static renderCheckBox() {
     const inputArea = document.createElement("div");
     const checkBox = document.createElement("input");
     const typeInput = document.createElement("input");
@@ -73,10 +66,12 @@ class Bar {
     checkBox.id = "checkBox";
     typeInput.id = "typeInput";
 
-    const modulesHub = document.getElementsByClassName("modulesHub");
-    Array.from(modulesHub).forEach((e) => {
-      e.appendChild(inputArea);
-    });
+    const modulesHub = document.getElementById("modulesHub");
+    modulesHub.appendChild(inputArea);
+
+    // Array.from(modulesHub).forEach((e) => {
+    //   e.appendChild(inputArea);
+    // });
 
     inputArea.appendChild(checkBox);
     inputArea.appendChild(typeInput);
@@ -84,6 +79,9 @@ class Bar {
     checkBox.type = "checkbox";
     typeInput.type = "text";
     typeInput.placeholder = "Digite aqui...";
+    const event = new EventManager();
+    event.checkParagraph();
+
   }
 
   removeBar(barId) {
@@ -91,8 +89,6 @@ class Bar {
     let index = barList.indexOf(id);
     barList.splice(index, 1);
   }
-
-
 }
 
 class Progress {
@@ -123,12 +119,35 @@ class EventManager {
 
 
 
+  checkParagraph() {
+    const p = document.querySelectorAll("p");
 
-  toogleStyle(first, second, class1, class2) {
-    first.onclick = () => {
-      second.classList.toggle(class1);
-      second.classList.toggle(class2);
-    };
+    Array.from(p).forEach((pr) => {
+      pr.onclick = () => {
+        if (pr.id === "arrowDown") {
+          const modulesHub = document.getElementsByClassName("modulesHub");
+          Array.from(modulesHub).forEach((module) => {
+            
+            Styles.changeDisplay(module)
+          })
+        }
+        if (pr.id === "add") {
+          Bar.renderCheckBox();
+        }
+      };
+    });
+  }
+}
+
+class Styles{
+  static changeDisplay(element){
+    if(element.style.display == "initial"){
+
+      element.style.display = "none";
+    } else if(element.style.display == "none"){
+
+      element.style.display = "block";
+    }
   }
 }
 
@@ -136,62 +155,3 @@ const bar = new Bar();
 const eventBar = new EventManager(bar);
 eventBar.clickBar("#createBarButton");
 
-const p = document.querySelectorAll("p");
-
-function checkP(e){
-  
-  console.log(e.currentTarget.id)
-}
-
-if(exist){
-
-  p.forEach((ps) => {
-  
-    ps.addEventListener("click", (e) => {
-      checkP(e)
-    
-    })
-  })
-}
-
-
-
-
-
-
-
-
-// if (modulesList.length >= 1) {
-//   arrowDown.textContent = "↓";
-// } else {
-//   addInit.textContent = "+";
-// }
-
-// eventManager.toogleStyle(arrowDown, barPanel, "openBarPanel", "barPanel");
-
-// addInit.onclick = this.renderTodoHub();
-
-/*
-
-EVENTS
-  - create bar
-  - create task
-  - check/uncheck task
-  - delete task
-  - delete bar
-
-CONTROLLER
-  - render bar
-  - render task
-  - comunicate task to DB
-  - remove task
-  - remove bar
-
-DATABASE
-  - bar
-  - task
-
-  EVENT_CLICK(){
-    
-  }
-*/
