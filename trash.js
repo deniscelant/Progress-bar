@@ -14,3 +14,9 @@
 //     console.log(pr);
 //   };
 // });
+
+
+  // clickBar(selector) {
+  //   const barElement = document.querySelector(selector);
+  //   barElement.addEventListener("click", () => this.method.renderBar());
+  // }

@@ -6,6 +6,7 @@ body {
     font-family: "Inter", sans-serif;
     background-color: #212121;
     color: white;
+    user-select: none;
 }
 
 @media only screen and (max-width: 600px) {

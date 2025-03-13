@@ -3,85 +3,64 @@ let modulesList = [];
 let doneModulesList = [];
 let barList = [];
 
+let bar_id = 1;
+let todo_id = 1;
+
 class Bar {
   constructor() {}
 
-  renderBar() {
+  static renderBar() {
     const barPanel = document.createElement("div");
     const bar = document.createElement("div");
     const progress = document.createElement("div");
     const text = document.createElement("input");
     const percent = document.createElement("p");
-    const arrowDown = document.createElement("p");
-    const addInit = document.createElement("p");
+    const arrow = document.createElement("p");
 
-    barPanel.classList.add("barPanel");
-    barPanel.id = "barPanel";
-    bar.id = "bar";
-    progress.id = "progress";
-    text.id = "text";
-    percent.id = "percent";
-    arrowDown.id = "arrowDown";
-    addInit.id = "addInit";
+    barPanel.classList.add("barPanel")
+    bar.classList.add("bar")
+    progress.classList.add("progress")
+    percent.classList.add("percent")
+    arrow.classList.add("arrow")
+    
+    barPanel.id = `barPanel${bar_id++}`;
+    bar.id = `bar${bar_id++}`;
+    progress.id = `progress${bar_id++}`;
+    text.id = `text${bar_id++}`;
+    percent.id = `percent${bar_id++}`;
+    arrow.id = `arrow${bar_id++}`;
 
     barPanel.appendChild(bar);
     bar.appendChild(progress);
     progress.appendChild(text);
     progress.appendChild(percent);
-    progress.appendChild(arrowDown);
-    progress.appendChild(addInit);
-
+    progress.appendChild(arrow);
     hub.appendChild(barPanel);
 
     text.placeholder = "My bar";
     text.type = "text";
     percent.textContent = "0%";
-    arrowDown.textContent = "↓";
+    arrow.textContent = "↓";
 
-
-    let module = 1;
-    modulesList.push(module);
-    const modulesHub = document.createElement("div");
-
-    modulesHub.classList.add("modulesHub");
-
-    const add = document.createElement("p");
-    // modulesHub.id = "modulesHub";
-    add.id = "add";
-    add.textContent = "+";
-
-    modulesHub.appendChild(add);
-    barPanel.appendChild(modulesHub);
-
-    const event = new EventManager();
-    event.checkParagraph();
+    EventManager.checkParagraph();
   }
 
-  static renderCheckBox() {
+  static renderCheckBox(element) {
     const inputArea = document.createElement("div");
     const checkBox = document.createElement("input");
     const typeInput = document.createElement("input");
 
-    inputArea.id = "inputArea";
-    checkBox.id = "checkBox";
-    typeInput.id = "typeInput";
-
-    const modulesHub = document.getElementById("modulesHub");
-    modulesHub.appendChild(inputArea);
-
-    // Array.from(modulesHub).forEach((e) => {
-    //   e.appendChild(inputArea);
-    // });
+    inputArea.id = `inputArea${todo_id++}`;
+    checkBox.id = `checkbox${todo_id++}`;
+    typeInput.id = `typeInput${todo_id++}`;
 
     inputArea.appendChild(checkBox);
     inputArea.appendChild(typeInput);
+    element.appendChild(inputArea);
 
     checkBox.type = "checkbox";
     typeInput.type = "text";
     typeInput.placeholder = "Digite aqui...";
-    const event = new EventManager();
-    event.checkParagraph();
-
   }
 
   removeBar(barId) {
@@ -112,46 +91,42 @@ class EventManager {
     // this.selector = selector;
   }
 
-  clickBar(selector) {
-    const barElement = document.querySelector(selector);
-    barElement.addEventListener("click", () => this.method.renderBar());
-  }
-
-
-
-  checkParagraph() {
+  static checkParagraph() {
     const p = document.querySelectorAll("p");
 
     Array.from(p).forEach((pr) => {
       pr.onclick = () => {
-        if (pr.id === "arrowDown") {
+        if (pr.id === "arrow") {
           const modulesHub = document.getElementsByClassName("modulesHub");
           Array.from(modulesHub).forEach((module) => {
-            
-            Styles.changeDisplay(module)
-          })
+            Styles.changeDisplay(module);
+          });
         }
         if (pr.id === "add") {
-          Bar.renderCheckBox();
+          const modulesHub = document.getElementsByClassName("modulesHub");
+          Array.from(modulesHub).forEach((module) => {
+            Bar.renderCheckBox(module);
+          });
         }
       };
     });
   }
 }
 
-class Styles{
-  static changeDisplay(element){
-    if(element.style.display == "initial"){
-
+class Styles {
+  static changeDisplay(element) {
+    if (element.style.display == "initial") {
       element.style.display = "none";
-    } else if(element.style.display == "none"){
-
+    } else if (element.style.display == "none") {
       element.style.display = "block";
     }
   }
 }
 
-const bar = new Bar();
-const eventBar = new EventManager(bar);
-eventBar.clickBar("#createBarButton");
+const eventBar = new EventManager();
+const createBarButton = document.getElementById("createBarButton");
 
+createBarButton.onclick = () => {
+  Bar.renderBar();
+};
+// eventBar.clickBar("#createBarButton");
