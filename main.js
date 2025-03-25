@@ -21,20 +21,20 @@ class Bar {
     bar.classList.add("bar");
     progress.classList.add("progress");
     percent.classList.add("percent");
-    arrow.classList.add("arrow");
+    arrow.classList.add("arrows");
 
     barPanel.id = `barPanel${bar_id++}`;
     bar.id = `bar${bar_id++}`;
     progress.id = `progress${bar_id++}`;
     text.id = `text${bar_id++}`;
     percent.id = `percent${bar_id++}`;
-    arrow.id = `arrow${bar_id++}`;
+    arrow.id = "arrowDown";
 
     barPanel.appendChild(bar);
+    barPanel.appendChild(arrow);
     bar.appendChild(progress);
     progress.appendChild(text);
     progress.appendChild(percent);
-    progress.appendChild(arrow);
     hub.appendChild(barPanel);
 
     text.placeholder = "My bar";
@@ -50,11 +50,13 @@ class Bar {
     // modulesHub.id = "modulesHub";
     add.id = `add${bar_id++}`;
     add.textContent = "+";
+    add.classList.add("add");
 
     modulesHub.appendChild(add);
     barPanel.appendChild(modulesHub);
 
-    EventManager.checkParagraph();
+    EventManager.checkArrow();
+    EventManager.checkAdd();
   }
 
   static renderCheckBox(element) {
@@ -103,27 +105,22 @@ class EventManager {
     // this.selector = selector;
   }
 
-  static checkParagraph() {
-    const p = document.querySelectorAll("p");
+  static checkArrow() {
 
-    Array.from(p).forEach((pr) => {
-      pr.onclick = () => {
-        if (pr.id === `arrow${bar_id}`) {
-          const modulesHub = document.getElementsByClassName("modulesHub");
-          Array.from(modulesHub).forEach((module) => {
-            Styles.changeDisplay(module);
-          });
-        }
-        const text = pr.id;
-        text.replace(/[0-9]/g, '')
-        if (pr.id === text) {
-          const modulesHub = document.getElementsByClassName("modulesHub");
-          Array.from(modulesHub).forEach((module) => {
-            Bar.renderCheckBox(module);
-          });
-        }
+    const arrows = document.getElementsByClassName("arrows");
+    Array.from(arrows).forEach((arrow) => {
+      arrow.onclick = () => {
+        Styles.toogleParentStyle(arrow.parentElement, "openBarPanel", "barPanel");
+      };
+    });
+  }
 
-        console.log(pr.id);
+  static checkAdd() {
+
+    const addButton = document.getElementsByClassName("add");
+    Array.from(addButton).forEach((add) => {
+      add.onclick = () => {
+        Bar.renderCheckBox(add.parentElement);
       };
     });
   }
@@ -137,9 +134,13 @@ class Styles {
       element.style.display = "block";
     }
   }
+
+  static toogleParentStyle(parent, first, second) {
+    parent.classList.toggle(first);
+    parent.classList.toggle(second);
+  }
 }
 
-const eventBar = new EventManager();
 const createBarButton = document.getElementById("createBarButton");
 
 createBarButton.onclick = () => {
