@@ -17,8 +17,7 @@ class Bar {
     const percent = document.createElement("p");
     const openArrow = document.createElement("p");
     const closeArrow = document.createElement("p");
-    
-    
+
     openArrow.classList.add("arrows");
     closeArrow.classList.add("arrows");
     barPanel.classList.add("barPanel");
@@ -26,14 +25,13 @@ class Bar {
     progress.classList.add("progress");
     percent.classList.add("percent");
 
-    barPanel.id = `barPanel${bar_id++}`;
-    bar.id = `bar${bar_id++}`;
-    progress.id = `progress${bar_id++}`;
-    text.id = `text${bar_id++}`;
-    percent.id = `percent${bar_id++}`;
-    closeArrow.id = "closeArrow"
+    barPanel.id = "barPanel";
+    bar.id = "bar";
+    progress.id = "progress";
+    text.id = "text";
+    percent.id = "percent";
+    closeArrow.id = "closeArrow";
 
-    
     barPanel.appendChild(bar);
     barPanel.appendChild(openArrow);
     barPanel.appendChild(closeArrow);
@@ -48,29 +46,25 @@ class Bar {
     openArrow.textContent = "↑";
     closeArrow.textContent = "↓";
 
-    closeArrow.style.display = "none"
-
-   
+    closeArrow.style.display = "none";
 
     const modulesHub = document.createElement("div");
-    
 
     modulesHub.classList.add("modulesHub");
-    modulesHub.style.display = "none"
+    modulesHub.style.display = "none";
 
     openArrow.onclick = () => {
-      openArrow.style.display = "none"
-      closeArrow.style.display = "initial"
-      modulesHub.style.display = "initial"
-    }
+      openArrow.style.display = "none";
+      closeArrow.style.display = "initial";
+      modulesHub.style.display = "initial";
+    };
 
     closeArrow.onclick = () => {
-      closeArrow.style.display = "none"
-      openArrow.style.display = "initial"
-      modulesHub.style.display = "none"
+      closeArrow.style.display = "none";
+      openArrow.style.display = "initial";
+      modulesHub.style.display = "none";
+    };
 
-    }
-    
     const add = document.createElement("p");
     // modulesHub.id = "modulesHub";
     add.id = `add${bar_id++}`;
@@ -81,8 +75,7 @@ class Bar {
     barPanel.appendChild(modulesHub);
 
     // EventManager.checkArrow();
-    // EventManager.checkAdd();
-
+    EventManager.checkAdd();
   }
 
   static renderCheckBox(element) {
@@ -90,11 +83,11 @@ class Bar {
     const checkBox = document.createElement("input");
     const typeInput = document.createElement("input");
 
-    
-    inputArea.id = `inputArea${todo_id++}`;
-    checkBox.id = `checkbox${todo_id++}`;
-    typeInput.id = `typeInput${todo_id++}`;
-    
+    inputArea.id = "inputArea";
+    checkBox.id = "checkbox";
+    typeInput.id = "typeInput";
+
+    checkBox.classList.add("checkBoxes");
     inputArea.appendChild(checkBox);
     inputArea.appendChild(typeInput);
     element.appendChild(inputArea);
@@ -102,6 +95,9 @@ class Bar {
     checkBox.type = "checkbox";
     typeInput.type = "text";
     typeInput.placeholder = "Digite aqui...";
+
+    EventManager.handleMarkedCheckBox();
+    EventManager.handleCheckBox();
   }
 
   removeBar(barId) {
@@ -112,44 +108,63 @@ class Bar {
 }
 
 class Progress {
-  calcProgress(modules, done_modules) {
+  static calcProgress(progress, percent) {
     let total = 100;
-    let active = modules.length;
-    let done = done_modules.length;
+    let active = modulesList.length;
+    let done = doneModulesList.length;
     let some = (total * done) / active;
     some = Math.trunc(some);
-  }
-
-  changeProgress(some, progress, percent) {
     progress.style.width = `${some}%`;
     percent.textContent = `${some}%`;
   }
 }
 
 class EventManager {
-  constructor(method) {
-    this.method = method;
+  constructor() {
     // this.selector = selector;
   }
 
   static checkArrow() {
-
     const closeArrow = document.getElementsByClassName("closeArrow");
     Array.from(closeArrow).forEach((arrow) => {
       arrow.onclick = () => {
-        Styles.toogleParentStyle(arrow.parentElement, "openBarPanel", "barPanel");
+        Styles.toogleParentStyle(
+          arrow.parentElement,
+          "openBarPanel",
+          "barPanel"
+        );
       };
     });
   }
 
   static checkAdd() {
-
     const addButton = document.getElementsByClassName("add");
     Array.from(addButton).forEach((add) => {
       add.onclick = () => {
         Bar.renderCheckBox(add.parentElement);
       };
     });
+  }
+
+  static handleMarkedCheckBox() {
+    const checkBoxes = document.getElementsByClassName("checkBoxes");
+    Array.from(checkBoxes).forEach((checkbox) => {
+      checkbox.onclick = () => {
+        doneModulesList.push(checkbox);
+        const progress = document.getElementById("progress");
+        const percent = document.getElementById("percent");
+
+        Progress.calcProgress(progress, percent);
+      };
+    });
+  }
+
+  static handleCheckBox() {
+    const checkBoxes = document.getElementsByClassName("checkBoxes");
+    const arrCheckBoxes = Array.from(checkBoxes);
+    const twoCheckBoxArray = [];
+    modulesList = arrCheckBoxes.concat(twoCheckBoxArray);
+    console.log(modulesList);
   }
 }
 
