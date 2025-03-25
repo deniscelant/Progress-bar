@@ -20,7 +20,7 @@ class Bar {
 
     openArrow.classList.add("arrows");
     closeArrow.classList.add("arrows");
-    barPanel.classList.add("barPanel");
+    barPanel.classList.add(`barPanel${bar_id++}`);
     bar.classList.add("bar");
     progress.classList.add("progress");
     percent.classList.add("percent");
@@ -66,7 +66,6 @@ class Bar {
     };
 
     const add = document.createElement("p");
-    // modulesHub.id = "modulesHub";
     add.id = `add${bar_id++}`;
     add.textContent = "+";
     add.classList.add("add");
@@ -74,7 +73,6 @@ class Bar {
     modulesHub.appendChild(add);
     barPanel.appendChild(modulesHub);
 
-    // EventManager.checkArrow();
     EventManager.checkAdd();
   }
 
@@ -124,18 +122,19 @@ class EventManager {
     // this.selector = selector;
   }
 
-  static checkArrow() {
-    const closeArrow = document.getElementsByClassName("closeArrow");
-    Array.from(closeArrow).forEach((arrow) => {
-      arrow.onclick = () => {
-        Styles.toogleParentStyle(
-          arrow.parentElement,
-          "openBarPanel",
-          "barPanel"
-        );
-      };
-    });
-  }
+  // static checkArrow() {
+  //   const closeArrow = document.getElementsByClassName("closeArrow");
+  //   Array.from(closeArrow).forEach((arrow) => {
+  //     arrow.onclick = () => {
+  //       // Styles.toogleParentStyle(
+  //       //   arrow.parentElement,
+  //       //   "openBarPanel",
+  //       //   "barPanel"
+  //       // );
+  //       arrow.parentElement.style.height = "100px";
+  //     };
+  //   });
+  // }
 
   static checkAdd() {
     const addButton = document.getElementsByClassName("add");
@@ -150,10 +149,22 @@ class EventManager {
     const checkBoxes = document.getElementsByClassName("checkBoxes");
     Array.from(checkBoxes).forEach((checkbox) => {
       checkbox.onclick = () => {
-        doneModulesList.push(checkbox);
-        const progress = document.getElementById("progress");
-        const percent = document.getElementById("percent");
+        if(checkbox.checked){
 
+          doneModulesList.push(checkbox);
+        }
+        if(!checkbox.checked){
+          doneModulesList.pop(checkbox)
+        }
+        
+        const parent_inputArea = checkbox.parentElement;
+        const parent_modulesHub = parent_inputArea.parentElement;
+        const parent_barPanel = parent_modulesHub.parentElement;
+        const children_bar = parent_barPanel.firstElementChild;
+        const progress = children_bar.firstElementChild
+        const percent = progress.lastElementChild
+
+           
         Progress.calcProgress(progress, percent);
       };
     });
