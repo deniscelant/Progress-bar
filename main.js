@@ -15,23 +15,28 @@ class Bar {
     const progress = document.createElement("div");
     const text = document.createElement("input");
     const percent = document.createElement("p");
-    const arrow = document.createElement("p");
-
+    const openArrow = document.createElement("p");
+    const closeArrow = document.createElement("p");
+    
+    
+    openArrow.classList.add("arrows");
+    closeArrow.classList.add("arrows");
     barPanel.classList.add("barPanel");
     bar.classList.add("bar");
     progress.classList.add("progress");
     percent.classList.add("percent");
-    arrow.classList.add("arrows");
 
     barPanel.id = `barPanel${bar_id++}`;
     bar.id = `bar${bar_id++}`;
     progress.id = `progress${bar_id++}`;
     text.id = `text${bar_id++}`;
     percent.id = `percent${bar_id++}`;
-    arrow.id = "arrowDown";
+    closeArrow.id = "closeArrow"
 
+    
     barPanel.appendChild(bar);
-    barPanel.appendChild(arrow);
+    barPanel.appendChild(openArrow);
+    barPanel.appendChild(closeArrow);
     bar.appendChild(progress);
     progress.appendChild(text);
     progress.appendChild(percent);
@@ -40,12 +45,32 @@ class Bar {
     text.placeholder = "My bar";
     text.type = "text";
     percent.textContent = "0%";
-    arrow.textContent = "↓";
+    openArrow.textContent = "↑";
+    closeArrow.textContent = "↓";
+
+    closeArrow.style.display = "none"
+
+   
 
     const modulesHub = document.createElement("div");
+    
 
     modulesHub.classList.add("modulesHub");
+    modulesHub.style.display = "none"
 
+    openArrow.onclick = () => {
+      openArrow.style.display = "none"
+      closeArrow.style.display = "initial"
+      modulesHub.style.display = "initial"
+    }
+
+    closeArrow.onclick = () => {
+      closeArrow.style.display = "none"
+      openArrow.style.display = "initial"
+      modulesHub.style.display = "none"
+
+    }
+    
     const add = document.createElement("p");
     // modulesHub.id = "modulesHub";
     add.id = `add${bar_id++}`;
@@ -55,8 +80,9 @@ class Bar {
     modulesHub.appendChild(add);
     barPanel.appendChild(modulesHub);
 
-    EventManager.checkArrow();
-    EventManager.checkAdd();
+    // EventManager.checkArrow();
+    // EventManager.checkAdd();
+
   }
 
   static renderCheckBox(element) {
@@ -64,10 +90,11 @@ class Bar {
     const checkBox = document.createElement("input");
     const typeInput = document.createElement("input");
 
+    
     inputArea.id = `inputArea${todo_id++}`;
     checkBox.id = `checkbox${todo_id++}`;
     typeInput.id = `typeInput${todo_id++}`;
-
+    
     inputArea.appendChild(checkBox);
     inputArea.appendChild(typeInput);
     element.appendChild(inputArea);
@@ -107,8 +134,8 @@ class EventManager {
 
   static checkArrow() {
 
-    const arrows = document.getElementsByClassName("arrows");
-    Array.from(arrows).forEach((arrow) => {
+    const closeArrow = document.getElementsByClassName("closeArrow");
+    Array.from(closeArrow).forEach((arrow) => {
       arrow.onclick = () => {
         Styles.toogleParentStyle(arrow.parentElement, "openBarPanel", "barPanel");
       };
