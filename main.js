@@ -1,6 +1,4 @@
 const hub = document.getElementById("hub");
-let modulesList = [];
-let doneModulesList = [];
 let barList = [];
 
 let bar_id = 1;
@@ -103,13 +101,13 @@ class Bar {
     let index = barList.indexOf(id);
     barList.splice(index, 1);
   }
-}
 
-class Progress {
-  static calcProgress(progress, percent) {
+  static modulesList = [];
+  static doneModulesList = [];
+  static calcProgress() {
     let total = 100;
-    let active = modulesList.length;
-    let done = doneModulesList.length;
+    let active = this.modulesList.length;
+    let done = this.doneModulesList.length;
     let some = (total * done) / active;
     some = Math.trunc(some);
     progress.style.width = `${some}%`;
@@ -117,24 +115,24 @@ class Progress {
   }
 }
 
-class EventManager {
-  constructor() {
-    // this.selector = selector;
-  }
+// class Progress {
+//   static modulesList = [];
+//   static doneModulesList = [];
+//   constructor() {
+//   }
+//   static calcProgress(progress, percent) {
+//     let total = 100;
+//     let active = this.modulesList.length;
+//     let done = this.doneModulesList.length;
+//     let some = (total * done) / active;
+//     some = Math.trunc(some);
+//     progress.style.width = `${some}%`;
+//     percent.textContent = `${some}%`;
+//   }
+// }
 
-  // static checkArrow() {
-  //   const closeArrow = document.getElementsByClassName("closeArrow");
-  //   Array.from(closeArrow).forEach((arrow) => {
-  //     arrow.onclick = () => {
-  //       // Styles.toogleParentStyle(
-  //       //   arrow.parentElement,
-  //       //   "openBarPanel",
-  //       //   "barPanel"
-  //       // );
-  //       arrow.parentElement.style.height = "100px";
-  //     };
-  //   });
-  // }
+class EventManager {
+  constructor() {}
 
   static checkAdd() {
     const addButton = document.getElementsByClassName("add");
@@ -149,23 +147,21 @@ class EventManager {
     const checkBoxes = document.getElementsByClassName("checkBoxes");
     Array.from(checkBoxes).forEach((checkbox) => {
       checkbox.onclick = () => {
-        if(checkbox.checked){
+        if (checkbox.checked) {
+          Bar.doneModulesList.push(checkbox);
+        }
+        if (!checkbox.checked) {
+          Bar.doneModulesList.pop(checkbox);
+        }
 
-          doneModulesList.push(checkbox);
-        }
-        if(!checkbox.checked){
-          doneModulesList.pop(checkbox)
-        }
-        
         const parent_inputArea = checkbox.parentElement;
         const parent_modulesHub = parent_inputArea.parentElement;
         const parent_barPanel = parent_modulesHub.parentElement;
         const children_bar = parent_barPanel.firstElementChild;
-        const progress = children_bar.firstElementChild
-        const percent = progress.lastElementChild
+        const progress = children_bar.firstElementChild;
+        const percent = progress.lastElementChild;
 
-           
-        Progress.calcProgress(progress, percent);
+        Bar.calcProgress(progress, percent);
       };
     });
   }
@@ -174,8 +170,8 @@ class EventManager {
     const checkBoxes = document.getElementsByClassName("checkBoxes");
     const arrCheckBoxes = Array.from(checkBoxes);
     const twoCheckBoxArray = [];
-    modulesList = arrCheckBoxes.concat(twoCheckBoxArray);
-    console.log(modulesList);
+    Bar.modulesList = arrCheckBoxes.concat(twoCheckBoxArray);
+    console.log(Bar.modulesList);
   }
 }
 
