@@ -1,26 +1,35 @@
 class Bar {
   constructor() {
     this.barDiv;
-    this.progress;
+    this.Render();
     this.tittle = "Minha barra de progresso";
     this.percent = 0;
-    this.arrow = "↓";
     this.marked = [];
     this.unMarked = [];
     this.modules = [];
     this.module;
-    this.modulesHub;
-    this.Render();
-    this.StyleEvents();
-    this.checkBoxEvents();
-    this.Progress();
+    this.progress = document.querySelector("#progress");
+    this.arrow = document.querySelector("#arrow");
     this.add = document.querySelector("#add");
+    this.modulesHub = document.querySelector("#modulesHub");
     this.checkbox = document.querySelector("#checkbox");
+    this.Events();
+    this.Progress();
   }
 
-  StyleEvents() {}
+  Events(){
 
-  checkBoxEvents() {
+    this.arrow.onclick = () => {
+      if(this.arrow.textContent == "↓"){
+        this.modulesHub.style.display = "initial";
+        this.arrow.textContent = "↑"
+      }
+      if(this.arrow.textContent == "↑"){
+        this.modulesHub.style.display = "none";
+        this.arrow.textContent = "↓"
+      }
+    }
+
     this.add.onclick = () => {
       this.active.push(1);
       this.module = document.createElement("div");
@@ -51,7 +60,7 @@ class Bar {
     let marked = this.marked.length;
     let some = (total * unmarked) / marked;
     some = Math.trunc(some);
-    this.progress = some;
+    this.progress.style.width = some;
     this.percent = some;
   }
 
@@ -67,7 +76,7 @@ class Bar {
                 type="text"
                 placeholder=${this.tittle}></input>
                 <p id="percent">${this.percent}</p>
-                <p id="arrowDown">${this.arrow}</p>
+                <p id="arrow">↓</p>
             </div>
             <div id="modulesHub">
               <p id="add">+</p>
@@ -77,10 +86,12 @@ class Bar {
     `;
   }
   RemoveBar() {
-    this.bar.remove();
+    this.barDiv.remove();
   }
 
   checkboxClick() {}
   addClick() {}
   createBarClick() {}
 }
+
+document.querySelector("#createBarButton").onclick = () => new Bar()
