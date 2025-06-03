@@ -1,69 +1,73 @@
 class Bar {
   constructor() {
-    this.barDiv = document.createElement("div");
+    this.barDiv;
     this.progress;
     this.tittle = "Minha barra de progresso";
     this.percent = 0;
     this.arrow = "↓";
-    this.active = [];
+    this.marked = [];
     this.unMarked = [];
     this.modules = [];
+    this.module;
+    this.modulesHub;
     this.Render();
     this.StyleEvents();
-    this.markCheckBox();
+    this.checkBoxEvents();
     this.Progress();
+    this.add = document.querySelector("#add");
+    this.checkbox = document.querySelector("#checkbox");
   }
 
   StyleEvents() {}
-  addCheckBox() {
-    this.active.push(1);
-  }
-  markCheckBox(checkbox) {
-    if (checkbox.checked) {
-      this.unMarked.push(1);
-      this.active.pop();
-    }
-    if (!checkbox.checked) {
+
+  checkBoxEvents() {
+    this.add.onclick = () => {
       this.active.push(1);
-      this.unMarked.pop();
-    }
+      this.module = document.createElement("div");
+      this.modulesHub = document.querySelector("#modulesHub");
+      this.modulesHub.appendChild(this.module);
+      this.module.innerHTML = `
+        <input id="checkbox" type="checkbox"/>
+        <input id="moduleText" type="checkbox"
+        placeholder="Nome da tarefa"/>
+      `;
+    };
+
+     this.checkbox.onclick = () => {
+      if (checkbox.checked) {
+        this.unMarked.push(1);
+        this.active.pop();
+      }
+      if (!checkbox.checked) {
+        this.active.push(1);
+        this.unMarked.pop();
+      }
+    };
   }
 
   Progress() {
     let total = 100;
-    let marked = this.active.length;
-    let done = this.unMarked.length;
-    let some = (total * done) / marked;
+    let unmarked = this.unMarked.length;
+    let marked = this.marked.length;
+    let some = (total * unmarked) / marked;
     some = Math.trunc(some);
     this.progress = some;
     this.percent = some;
   }
 
-  RemoveBar() {
-    this.bar.remove();
-  }
-}
-
-class Event {
-  static checkboxClick() {}
-  static addClick() {}
-  static createBarClick() {}
-}
-
-class Render {
-  constructor() {
-    const newBar = new Bar();
-    document.body.appendChild(newBar.barDiv);
-    newBar.barDiv.innerHTML = `
+  Render() {
+    this.barDiv = document.createElement("div");
+    document.body.appendChild(this.barDiv);
+    this.barDiv.innerHTML = `
     <div class="barPanel">
         <div id="bar">
             <div id="progress">
                 <input
-                id="text"
+                id="tittle"
                 type="text"
-                placeholder=${newBar.tittle}></input>
-                <p id="percent">${newBar.percent}</p>
-                <p id="arrowDown">${newBar.arrow}</p>
+                placeholder=${this.tittle}></input>
+                <p id="percent">${this.percent}</p>
+                <p id="arrowDown">${this.arrow}</p>
             </div>
             <div id="modulesHub">
               <p id="add">+</p>
@@ -72,4 +76,11 @@ class Render {
     </div>
     `;
   }
+  RemoveBar() {
+    this.bar.remove();
+  }
+
+  checkboxClick() {}
+  addClick() {}
+  createBarClick() {}
 }
