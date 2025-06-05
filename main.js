@@ -4,12 +4,10 @@ class Bar {
     this.tittle = "Minha barra de progresso";
     this.percent = 0;
     this.modules = {
-      
       marked: [],
       unMarked: [],
-    }
+    };
     this.progress;
-    this.Render();
     this.Progress();
   }
 
@@ -44,27 +42,26 @@ class Bar {
     </div>
     `;
   }
-  
+
   RemoveBar() {
     this.barDiv.remove();
   }
 
-  static checkboxClick(checkbox) {
+  checkboxClick(checkbox) {
     if (checkbox.checked) {
-      this.unMarked.push(1);
-      this.active.pop();
+      this.modules.unMarked.push(1);
+      this.modules.marked.pop();
     }
     if (!checkbox.checked) {
-      this.active.push(1);
-      this.unMarked.pop();
+      this.modules.marked.push(1);
+      this.modules.unMarked.pop();
     }
   }
 
-  static addClick() {
+  addClick(moduleHub) {
     this.modules.unMarked.push(1);
     const module = document.createElement("div");
-    const modulesHub = document.querySelector("#modulesHub");
-    modulesHub.appendChild(module);
+    moduleHub.appendChild(module);
     module.innerHTML = `
         <input id="checkbox" class="checkbox" type="checkbox"/>
         <input id="moduleText" type="checkbox"
@@ -72,7 +69,7 @@ class Bar {
       `;
   }
 
-  static arrowClick(arrow) {
+  arrowClick(arrow) {
     if (arrow.textContent == "↓") {
       this.modulesHub.style.display = "initial";
       arrow.textContent = "↑";
@@ -103,18 +100,19 @@ class Bar {
 //   }
 // }
 
-document.querySelector("#createBarButton").onclick = () => new Bar();
+const bar = new Bar();
+document.querySelector("#createBarButton").onclick = () => bar.Render();
 
 document.onclick = (e) => {
-  if (e.target.matches(".add")) {
-    Bar.addClick();
+  if (e.target.id == "add") {
+    bar.addClick(e.target);
   }
-  if (e.target.matches(".checkbox")) {
-    const chk = e.currentTarget;
-    Bar.checkboxClick(chk);
-  }
-  if (e.target.matches(".arrow")) {
-    const arw = e.currentTarget;
-    Bar.checkboxClick(arw);
-  }
+  // if (e.target.matches(".checkbox")) {
+  //   const chk = e.target;
+  //   Bar.checkboxClick(chk);
+  // }
+  // if (e.target.matches(".arrow")) {
+  //   const arw = e.currentTarget;
+  //   Bar.checkboxClick(arw);
+  // }
 };
