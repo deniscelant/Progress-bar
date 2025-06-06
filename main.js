@@ -70,12 +70,13 @@ class Bar {
   }
 
   arrowClick(arrow) {
+    const modulesHub = document.querySelector("#modulesHub")
     if (arrow.textContent == "↓") {
-      this.modulesHub.style.display = "initial";
+      modulesHub.style.display = "initial";
       arrow.textContent = "↑";
     }
     if (arrow.textContent == "↑") {
-      this.modulesHub.style.display = "none";
+      modulesHub.style.display = "none";
       arrow.textContent = "↓";
     }
   }
@@ -107,12 +108,10 @@ document.onclick = (e) => {
   if (e.target.id == "add") {
     bar.addClick(e.target);
   }
-  // if (e.target.matches(".checkbox")) {
-  //   const chk = e.target;
-  //   Bar.checkboxClick(chk);
-  // }
-  // if (e.target.matches(".arrow")) {
-  //   const arw = e.currentTarget;
-  //   Bar.checkboxClick(arw);
-  // }
+  if (e.target.matches(".checkbox")) {
+    bar.checkboxClick(e.target);
+  }
+  if (e.target.matches(".arrow")) {
+    bar.checkboxClick(e.target);
+  }
 };
