@@ -71,11 +71,11 @@ class Bar {
 
   arrowClick(arrow) {
     const modulesHub = document.querySelector("#modulesHub")
-    if (arrow.textContent == "↓") {
+    if (arrow.textContent === "↓" && modulesHub.style.display == "block" ) {
       modulesHub.style.display = "initial";
       arrow.textContent = "↑";
     }
-    if (arrow.textContent == "↑") {
+    if (arrow.textContent === "↑") {
       modulesHub.style.display = "none";
       arrow.textContent = "↓";
     }
@@ -112,6 +112,6 @@ document.onclick = (e) => {
     bar.checkboxClick(e.target);
   }
   if (e.target.matches(".arrow")) {
-    bar.checkboxClick(e.target);
+    bar.arrowClick(e.target);
   }
 };
