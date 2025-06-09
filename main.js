@@ -8,6 +8,7 @@ class Bar {
       unMarked: [],
     };
     this.progress;
+    this.modulesHub;
     this.Progress();
   }
 
@@ -64,19 +65,19 @@ class Bar {
     moduleHub.appendChild(module);
     module.innerHTML = `
         <input id="checkbox" class="checkbox" type="checkbox"/>
-        <input id="moduleText" type="checkbox"
+        <input id="moduleText" type="text"
         placeholder="Nome da tarefa"/>
       `;
   }
 
   arrowClick(arrow) {
-    const modulesHub = document.querySelector("#modulesHub")
-    if (arrow.textContent === "↓" && modulesHub.style.display == "block" ) {
-      modulesHub.style.display = "initial";
+    const bar = new Bar();
+    if (arrow.textContent === "↓" && bar.modulesHub.style.display == "block") {
+      bar.modulesHub.style.display = "initial";
       arrow.textContent = "↑";
     }
-    if (arrow.textContent === "↑") {
-      modulesHub.style.display = "none";
+    if (arrow.textContent === "↑" && bar.modulesHub.style.display == "none") {
+      bar.modulesHub.style.display = "none";
       arrow.textContent = "↓";
     }
   }
@@ -108,10 +109,17 @@ document.onclick = (e) => {
   if (e.target.id == "add") {
     bar.addClick(e.target);
   }
-  if (e.target.matches(".checkbox")) {
+  if ((e.target.id = "checkbox")) {
     bar.checkboxClick(e.target);
   }
-  if (e.target.matches(".arrow")) {
+  if ((e.target.id = "arrow")) {
     bar.arrowClick(e.target);
+    const modulesHub = document.querySelectorAll("div#modulesHub");
+    const parent = e.target.parent
   }
 };
+
+function eventhandler(element, method) {
+  const domElement = document.querySelectorAll(`div#${element}`);
+  domElement.onclick = (e) => {};
+}
