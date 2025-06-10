@@ -103,20 +103,26 @@ class Bar {
 // }
 
 const bar = new Bar();
-document.querySelector("#createBarButton").onclick = () => bar.Render();
+// document.querySelector("#createBarButton").onclick = () => bar.Render();
+bar.Render()
 
 document.onclick = (e) => {
-  if (e.target.id == "add") {
-    bar.addClick(e.target);
-  }
-  if ((e.target.id = "checkbox")) {
-    bar.checkboxClick(e.target);
-  }
-  if ((e.target.id = "arrow")) {
-    bar.arrowClick(e.target);
-    const modulesHub = document.querySelectorAll("div#modulesHub");
-    const parent = e.target.parent
-  }
+  // if (e.target.id == "add") {
+  //   bar.addClick(e.target);
+  // }
+  // if ((e.target.id = "checkbox")) {
+  //   bar.checkboxClick(e.target);
+  // }
+  // if ((e.target.id = "arrow")) {
+  //   bar.arrowClick(e.target);
+  //   const modulesHub = document.querySelectorAll("div#modulesHub");
+  //   const parent = e.target.parent;
+  // }
+  const par = e.target.parentElement.lastChild;
+
+  // const md = par.childNodes[2];
+  // md.style.display = "none";
+  console.log(par)
 };
 
 function eventhandler(element, method) {
