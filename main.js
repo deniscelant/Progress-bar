@@ -34,8 +34,8 @@ class Bar {
                 type="text"
                 placeholder=${this.tittle}></input>
                 <p id="percent">${this.percent}</p>
-                <p id="arrow" class="arrow">↓</p>
             </div>
+                <p id="arrow" class="arrow">↓</p>
             <div id="modulesHub">
               <p id="add" class="add">+</p>
             </div>
@@ -71,13 +71,14 @@ class Bar {
   }
 
   arrowClick(arrow) {
-    const bar = new Bar();
-    if (arrow.textContent === "↓" && bar.modulesHub.style.display == "block") {
-      bar.modulesHub.style.display = "initial";
+    const par2 = arrow.closest("#bar");
+    const child = par2.querySelector("#modulesHub");
+    if (arrow.textContent === "↓") {
+      child.style.display = "none";
       arrow.textContent = "↑";
     }
-    if (arrow.textContent === "↑" && bar.modulesHub.style.display == "none") {
-      bar.modulesHub.style.display = "none";
+    else if (arrow.textContent === "↑") {
+      child.style.display = "initial";
       arrow.textContent = "↓";
     }
   }
@@ -103,29 +104,18 @@ class Bar {
 // }
 
 const bar = new Bar();
-// document.querySelector("#createBarButton").onclick = () => bar.Render();
-bar.Render()
+document.querySelector("#createBarButton").onclick = () => bar.Render();
+// bar.Render()
 
 document.onclick = (e) => {
-  // if (e.target.id == "add") {
-  //   bar.addClick(e.target);
-  // }
-  // if ((e.target.id = "checkbox")) {
-  //   bar.checkboxClick(e.target);
-  // }
-  // if ((e.target.id = "arrow")) {
-  //   bar.arrowClick(e.target);
-  //   const modulesHub = document.querySelectorAll("div#modulesHub");
-  //   const parent = e.target.parent;
-  // }
-  const par = e.target.parentElement.lastChild;
+  if (e.target.id == "add") {
+    bar.addClick(e.target);
+  }
+  if ((e.target.id == "checkbox")) {
+    bar.checkboxClick(e.target);
+  }
+  if ((e.target.id == "arrow")) {
+    bar.arrowClick(e.target);
+  }
 
-  // const md = par.childNodes[2];
-  // md.style.display = "none";
-  console.log(par)
 };
-
-function eventhandler(element, method) {
-  const domElement = document.querySelectorAll(`div#${element}`);
-  domElement.onclick = (e) => {};
-}
