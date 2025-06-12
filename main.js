@@ -9,6 +9,7 @@ class Bar {
     };
     this.progress;
     this.modulesHub;
+    this.Progress();
   }
 
   Progress() {
@@ -19,12 +20,6 @@ class Bar {
     some = Math.trunc(some);
     this.progress = some;
     this.percent = some;
-
-    const close = checkbox.closest("#bar");
-    const progress = close.querySelector("#progress");
-    const percent = close.querySelector("#percent");
-    progress.style.width = `${this.progress}px`;
-    percent.textContent = this.percent;
   }
 
   Render() {
@@ -38,7 +33,7 @@ class Bar {
                 id="tittle"
                 type="text"
                 placeholder=${this.tittle}></input>
-                <p id="percent">${this.percent}</p>
+                <p id="percent">${this.progress}</p>
             </div>
                 <p id="arrow" class="arrow">↓</p>
             <div id="modulesHub">
@@ -64,6 +59,10 @@ class Bar {
       this.modules.empty.pop();
       this.modules.marked.push(1);
     }
+    let progress = checkbox.closest("#progress");
+    let percent = checkbox.closest("#percent");
+    progress.style.width = `${this.progress}px`;
+    percent.textContent = this.progress;
   }
 
   addClick(moduleHub) {
@@ -75,8 +74,6 @@ class Bar {
         <input id="moduleText" type="text"
         placeholder="Nome da tarefa"/>
       `;
-    bar.Progress(document.querySelector("#checkbox"));
-
   }
 
   arrowClick(arrow) {
