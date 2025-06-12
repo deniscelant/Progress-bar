@@ -1,25 +1,25 @@
 class Bar {
+  
   constructor() {
+    this.id = 0;
     this.barDiv;
-    this.tittle = "My Bar";
-    this.percent = 0;
-    this.modules = {
-      marked: [],
-      empty: [],
-    };
-    this.progress;
-    this.modulesHub;
-    this.Progress();
+    this.tittle = "Minha barra de progresso";
+    this.Render();
   }
+  
+  static modules = {
+    marked: [],
+    unMarked: [],
+  };
 
-  Progress() {
-    const total = 100;
-    let empty = this.modules.empty.length;
-    let marked = this.modules.marked.length;
-    let some = (marked * total) / empty;
+  Progress(progress, percent) {
+    let total = 100;
+    let unmarked = Bar.modules.unMarked.length;
+    let marked = Bar.modules.marked.length;
+    let some = (total * unmarked) / marked;
     some = Math.trunc(some);
-    this.progress = some;
-    this.percent = some;
+    progress.style.width = `${some}%`;
+    percent.textContent = some;
   }
 
   Render() {
@@ -27,13 +27,13 @@ class Bar {
     document.body.appendChild(this.barDiv);
     this.barDiv.innerHTML = `
     <div class="barPanel">
-        <div id="bar">
+        <div id="bar${this.id++}">
             <div id="progress">
                 <input
                 id="tittle"
                 type="text"
                 placeholder=${this.tittle}></input>
-                <p id="percent">${this.progress}</p>
+                <p id="percent"></p>
             </div>
                 <p id="arrow" class="arrow">↓</p>
             <div id="modulesHub">
@@ -48,25 +48,24 @@ class Bar {
     this.barDiv.remove();
   }
 
-  checkboxClick(checkbox) {
-    if (!checkbox.checked) {
-      //empty
-      this.modules.empty.push(1);
-      this.modules.marked.pop();
-    }
+  handleCheck(checkbox) {
     if (checkbox.checked) {
-      //marked
-      this.modules.empty.pop();
-      this.modules.marked.push(1);
+      Bar.modules.unMarked.push(1);
+      Bar.modules.marked.pop();
     }
-    let progress = checkbox.closest("#progress");
-    let percent = checkbox.closest("#percent");
-    progress.style.width = `${this.progress}px`;
-    percent.textContent = this.progress;
+    if (!checkbox.checked) {
+      Bar.modules.marked.push(1);
+      Bar.modules.unMarked.pop();
+    }
+
+    const par = checkbox.closest(`#bar${this.id}`)
+    const progress = par.querySelector("#progress")
+    const percent = par.querySelector("#percent")
+    this.Progress(progress, percent)
   }
 
-  addClick(moduleHub) {
-    this.modules.empty.push(1);
+  addModule(moduleHub) {
+    this.modules.unMarked.push(1);
     const module = document.createElement("div");
     moduleHub.appendChild(module);
     module.innerHTML = `
@@ -76,32 +75,32 @@ class Bar {
       `;
   }
 
-  arrowClick(arrow) {
+  hideArrow(arrow) {
     const par2 = arrow.closest("#bar");
     const child = par2.querySelector("#modulesHub");
     if (arrow.textContent === "↓") {
       child.style.display = "none";
       arrow.textContent = "↑";
-    } else if (arrow.textContent === "↑") {
+    }
+    else if (arrow.textContent === "↑") {
       child.style.display = "initial";
       arrow.textContent = "↓";
     }
   }
 }
 
-const bar = new Bar();
-document.querySelector("#createBarButton").onclick = () => bar.Render();
-// bar.Render()
+document.querySelector("#createBarButton").onclick = () => new Bar()
+// Bar.Render()
 
 document.onclick = (e) => {
   if (e.target.id == "add") {
-    bar.addClick(e.target);
+    Bar.addModule(e.target);
   }
-  if (e.target.id == "checkbox") {
-    bar.checkboxClick(e.target);
-    bar.Progress(e.target);
+  if ((e.target.id == "checkbox")) {
+    Bar.handleCheck(e.target);
   }
-  if (e.target.id == "arrow") {
-    bar.arrowClick(e.target);
+  if ((e.target.id == "arrow")) {
+    Bar.hideArrow(e.target);
   }
+
 };
