@@ -91,3 +91,7 @@ select:focus {
 .modulesHub{
   display: block;
 }
+
+.checkbox{
+  margin-top: 15px;
+}
