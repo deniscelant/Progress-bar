@@ -1,25 +1,23 @@
 class Bar {
-  
   constructor() {
-    this.id = 0;
     this.barDiv;
     this.tittle = "Minha barra de progresso";
+    this.modules = {
+      marked: [],
+      unMarked: [],
+    };
     this.Render();
+    this.Events();
   }
-  
-  static modules = {
-    marked: [],
-    unMarked: [],
-  };
 
-  Progress(progress, percent) {
-    let total = 100;
-    let unmarked = Bar.modules.unMarked.length;
-    let marked = Bar.modules.marked.length;
-    let some = (total * unmarked) / marked;
-    some = Math.trunc(some);
-    progress.style.width = `${some}%`;
-    percent.textContent = some;
+  Progress(container, progress, percent) {
+    const checkboxes = container.querySelectorAll(".checkbox");
+    const total = checkboxes.length;
+    const marked = [...checkboxes].filter((cb) => cb.checked).length;
+
+    const percentage = total === 0 ? 0 : Math.round((marked / total) * 100);
+    progress.style.width = `${percentage}%`;
+    percent.textContent = `${percentage}%`;
   }
 
   Render() {
@@ -27,7 +25,7 @@ class Bar {
     document.body.appendChild(this.barDiv);
     this.barDiv.innerHTML = `
     <div class="barPanel">
-        <div id="bar${this.id++}">
+        <div id="bar" class="bars">
             <div id="progress">
                 <input
                 id="tittle"
@@ -49,30 +47,31 @@ class Bar {
   }
 
   handleCheck(checkbox) {
-    if (checkbox.checked) {
-      Bar.modules.unMarked.push(1);
-      Bar.modules.marked.pop();
-    }
-    if (!checkbox.checked) {
-      Bar.modules.marked.push(1);
-      Bar.modules.unMarked.pop();
-    }
+    const parent = checkbox.closest(".bars");
+    const progress = parent.querySelector("#progress");
+    const percent = progress.querySelector("#percent");
 
-    const par = checkbox.closest(`#bar${this.id}`)
-    const progress = par.querySelector("#progress")
-    const percent = par.querySelector("#percent")
-    this.Progress(progress, percent)
+    this.Progress(parent, progress, percent);
   }
 
   addModule(moduleHub) {
-    this.modules.unMarked.push(1);
+    const container = moduleHub.closest(".bars");
+    const progress = container.querySelector("#progress");
+    const percent = progress.querySelector("#percent");
+
     const module = document.createElement("div");
     moduleHub.appendChild(module);
     module.innerHTML = `
-        <input id="checkbox" class="checkbox" type="checkbox"/>
-        <input id="moduleText" type="text"
-        placeholder="Nome da tarefa"/>
-      `;
+    <input class="checkbox" type="checkbox"/>
+    <input id="moduleText" type="text" placeholder="Nome da tarefa"/>
+  `;
+
+    const checkbox = module.querySelector(".checkbox");
+    checkbox.addEventListener("change", () => {
+      this.Progress(container, progress, percent);
+    });
+
+    this.Progress(container, progress, percent); // atualiza ao adicionar
   }
 
   hideArrow(arrow) {
@@ -81,26 +80,26 @@ class Bar {
     if (arrow.textContent === "↓") {
       child.style.display = "none";
       arrow.textContent = "↑";
-    }
-    else if (arrow.textContent === "↑") {
+    } else if (arrow.textContent === "↑") {
       child.style.display = "initial";
       arrow.textContent = "↓";
     }
   }
+
+  Events() {
+    document.onclick = (e) => {
+      if (e.target.id == "add") {
+        this.addModule(e.target);
+      }
+      if (e.target.id == "checkbox") {
+        this.handleCheck(e.target);
+      }
+      if (e.target.id == "arrow") {
+        this.hideArrow(e.target);
+      }
+    };
+  }
 }
 
-document.querySelector("#createBarButton").onclick = () => new Bar()
+document.querySelector("#createBarButton").onclick = () => new Bar();
 // Bar.Render()
-
-document.onclick = (e) => {
-  if (e.target.id == "add") {
-    Bar.addModule(e.target);
-  }
-  if ((e.target.id == "checkbox")) {
-    Bar.handleCheck(e.target);
-  }
-  if ((e.target.id == "arrow")) {
-    Bar.hideArrow(e.target);
-  }
-
-};
