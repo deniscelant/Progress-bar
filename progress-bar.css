@@ -9,18 +9,8 @@
     margin-bottom: 15px;
 }
 
-.openBarPanel{
-    background: linear-gradient(to right,#4d4d4d, #333333, #333333) ;
-    width: auto;
-    height: 100px;
-    padding: 15px 50px 15px 15px;
-    border-radius: 4px;
-    box-shadow: 5px 5px 15px #0f0f0f ;
-    margin-bottom: 15px;
-}
 
-
-.bar{
+.bars{
     width: 770px;
     height: 50px;
     border: solid 2px rgb(116, 116, 116);
@@ -47,7 +37,7 @@
     right: 500px;
 }
 
-.arrows{
+.arrow{
     position: absolute;
     right: 450px;
     margin-top: -40px;

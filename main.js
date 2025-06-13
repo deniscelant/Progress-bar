@@ -26,12 +26,12 @@ class Bar {
     this.barDiv.innerHTML = `
     <div class="barPanel">
         <div id="bar" class="bars">
-            <div id="progress">
+            <div id="progress" class="progress">
                 <input
-                id="tittle"
+                id="text"
                 type="text"
                 placeholder=${this.tittle}></input>
-                <p id="percent"></p>
+                <p id="percent" class="progress"></p>
             </div>
                 <p id="arrow" class="arrow">↓</p>
             <div id="modulesHub">
@@ -63,7 +63,7 @@ class Bar {
     moduleHub.appendChild(module);
     module.innerHTML = `
     <input class="checkbox" type="checkbox"/>
-    <input id="moduleText" type="text" placeholder="Nome da tarefa"/>
+    <input id="typeInput" type="text" placeholder="Nome da tarefa"/>
   `;
 
     const checkbox = module.querySelector(".checkbox");
