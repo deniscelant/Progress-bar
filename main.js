@@ -26,18 +26,19 @@ class Bar {
     this.barDiv.innerHTML = `
     <div class="barPanel">
         <div id="bar" class="bars">
-            <div id="progress" class="progress">
-                <input
-                id="text"
-                type="text"
-                placeholder=${this.tittle}></input>
-                <p id="percent" class="progress"></p>
+
+            <div id="progress" class="progress"></div>
+            
+            <div id="progressInfo">
+              <input id="text" type="text" placeholder="${this.tittle}"></input>
+              <p id="percent"></p>
+              <p id="arrow" class="arrow">↓</p>
             </div>
-                <p id="arrow" class="arrow">↓</p>
+            
+        </div>
             <div id="modulesHub">
               <p id="add" class="add">+</p>
-            </div>
-        </div>
+            </div> 
     </div>
     `;
   }
@@ -55,15 +56,16 @@ class Bar {
   }
 
   addModule(moduleHub) {
-    const container = moduleHub.closest(".bars");
+    const container = moduleHub.closest(".barPanel");
     const progress = container.querySelector("#progress");
-    const percent = progress.querySelector("#percent");
+    const percentParent = container.querySelector("#progressInfo");
+    const percent = percentParent.querySelector("#percent");
 
     const module = document.createElement("div");
     moduleHub.appendChild(module);
     module.innerHTML = `
-    <input class="checkbox" type="checkbox"/>
-    <input id="typeInput" type="text" placeholder="Nome da tarefa"/>
+    <input class="checkbox" type="checkbox" autocomplete="off"/>
+    <input id="typeInput" type="text" autocomplete="off" placeholder="Nome da tarefa"/>
   `;
 
     const checkbox = module.querySelector(".checkbox");
@@ -75,7 +77,7 @@ class Bar {
   }
 
   hideArrow(arrow) {
-    const par2 = arrow.closest("#bar");
+    const par2 = arrow.closest(".barPanel");
     const child = par2.querySelector("#modulesHub");
     if (arrow.textContent === "↓") {
       child.style.display = "none";
@@ -102,4 +104,5 @@ class Bar {
 }
 
 document.querySelector("#createBarButton").onclick = () => new Bar();
+new Bar()
 // Bar.Render()

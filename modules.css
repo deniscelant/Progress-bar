@@ -66,6 +66,7 @@ input[type="checkbox"]:focus+label {
 }
 
 #typeInput {
+  width: 500px;
   background-color: unset;
   color: white;
   font-size: 20px;
@@ -90,6 +91,10 @@ select:focus {
 
 .modulesHub{
   display: block;
+}
+
+.arrow{
+  text-align: right;
 }
 
 .checkbox{
