@@ -1,13 +1,14 @@
 class Bar {
   constructor() {
     this.barDiv;
-    this.tittle = "Minha barra de progresso";
     this.modules = {
       marked: [],
       unMarked: [],
     };
     this.Render();
     this.Events();
+    this.tittle = "MyBar";
+
   }
 
   Progress(container, progress, percent) {
@@ -30,7 +31,7 @@ class Bar {
             <div id="progress" class="progress"></div>
             
             <div id="progressInfo">
-              <input id="text" type="text" placeholder="${this.tittle}"></input>
+              <input id="text" type="text">${this.tittle}</input>
               <p id="percent"></p>
               <p id="arrow" class="arrow">↓</p>
             </div>
@@ -100,6 +101,13 @@ class Bar {
         this.hideArrow(e.target);
       }
     };
+  }
+
+  StorageData(){
+    const tittle = document.querySelector("#text")
+    const storageTittle = localStorage.setItem("tittle", tittle.placeholder)
+    this.tittle = localStorage.getItem("tittle");
+
   }
 }
 
